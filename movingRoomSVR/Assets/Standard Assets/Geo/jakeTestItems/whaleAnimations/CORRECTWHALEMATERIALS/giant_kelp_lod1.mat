@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: giant_kelp_lod1
+  m_Shader: {fileID: 4800000, guid: 59461b7ec6c6e41d687ec76a430ccdfd, type: 3}
+  m_ShaderKeywords: 
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 70ef0386c70d47f46af18a361116e880, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _CausticTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 1d36915d6c024524dbd53335b770286d, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _SpecMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _NormMap
+        second:
+          m_Texture: {fileID: 2800000, guid: 04a20a240a8e83b4c8a1c242b2b63088, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _AlphaTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _saturation
+        second: 1
+      data:
+        first:
+          name: _keyLightMult
+        second: 1
+      data:
+        first:
+          name: _ambLightMult
+        second: 1
+      data:
+        first:
+          name: _alphaTest
+        second: .5
+      data:
+        first:
+          name: _CausticMult
+        second: .800000012
+      data:
+        first:
+          name: _specMult
+        second: 3
+      data:
+        first:
+          name: _specPow
+        second: 20
+      data:
+        first:
+          name: _localBrighness
+        second: 1
+      data:
+        first:
+          name: _lod0Dist
+        second: 300
+      data:
+        first:
+          name: _lod1Dist
+        second: 600
+      data:
+        first:
+          name: _NoiseAmp
+        second: 140
+      data:
+        first:
+          name: _NoiseFreq
+        second: 4
+      data:
+        first:
+          name: _NoiseSpeed
+        second: 22
+      data:
+        first:
+          name: _ambMult
+        second: .5
+      data:
+        first:
+          name: _NoiseYMax
+        second: 100
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: .800000012, g: .800000012, b: .800000012, a: 1}
+      data:
+        first:
+          name: _MainTexColor
+        second: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1002 &2100001
+EditorExtensionImpl:
+  serializedVersion: 6

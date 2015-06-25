@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.movingRoomSVR.CSharp.Plugins", "UnityVS.movingRoomSVR.CSharp.Plugins.csproj", "{10E82F1B-380F-13CC-6B9F-93EF4AC9F1A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.movingRoomSVR.CSharp", "UnityVS.movingRoomSVR.CSharp.csproj", "{861A09B7-9224-71D8-A42F-BFD90F8DF3E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.movingRoomSVR.CSharp.Editor", "UnityVS.movingRoomSVR.CSharp.Editor.csproj", "{40949C81-3E0F-4584-87DE-9F6E99BFD768}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10E82F1B-380F-13CC-6B9F-93EF4AC9F1A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E82F1B-380F-13CC-6B9F-93EF4AC9F1A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E82F1B-380F-13CC-6B9F-93EF4AC9F1A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E82F1B-380F-13CC-6B9F-93EF4AC9F1A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{861A09B7-9224-71D8-A42F-BFD90F8DF3E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{861A09B7-9224-71D8-A42F-BFD90F8DF3E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{861A09B7-9224-71D8-A42F-BFD90F8DF3E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{861A09B7-9224-71D8-A42F-BFD90F8DF3E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40949C81-3E0F-4584-87DE-9F6E99BFD768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40949C81-3E0F-4584-87DE-9F6E99BFD768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40949C81-3E0F-4584-87DE-9F6E99BFD768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40949C81-3E0F-4584-87DE-9F6E99BFD768}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

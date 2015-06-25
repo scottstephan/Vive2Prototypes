@@ -1,0 +1,105 @@
+fileFormatVersion: 2
+guid: f77b95e56562d0f45ae64150bca710b1
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: shipwreck_joint_beam
+    100004: shipwreck_joint_beam_arch
+    100006: shipwreck_joint_beam_end
+    100008: shipwreck_joint_beam_lock_a
+    100010: shipwreck_joint_beam_lock_b
+    100012: shipwreck_joint_lock_back
+    100014: shipwreck_joint_lock_lf
+    100016: shipwreck_joint_lock_rt
+    100018: shipwreck_joint_lower
+    100020: shipwreck_joint_lower_arch
+    100022: shipwreck_joint_lower_end
+    100024: shipwreck_joint_root
+    100026: shipwreck_joint_upper
+    100028: shipwreck_joint_upper_arch
+    100030: shipwreck_joint_upper_end
+    100032: shipwreckA_anim_back
+    100034: shipwreckA_anim_front
+    400000: //RootNode
+    400002: shipwreck_joint_beam
+    400004: shipwreck_joint_beam_arch
+    400006: shipwreck_joint_beam_end
+    400008: shipwreck_joint_beam_lock_a
+    400010: shipwreck_joint_beam_lock_b
+    400012: shipwreck_joint_lock_back
+    400014: shipwreck_joint_lock_lf
+    400016: shipwreck_joint_lock_rt
+    400018: shipwreck_joint_lower
+    400020: shipwreck_joint_lower_arch
+    400022: shipwreck_joint_lower_end
+    400024: shipwreck_joint_root
+    400026: shipwreck_joint_upper
+    400028: shipwreck_joint_upper_arch
+    400030: shipwreck_joint_upper_end
+    400032: shipwreckA_anim_back
+    400034: shipwreckA_anim_front
+    4300000: shipwreckA_anim_front
+    4300002: shipwreckA_anim_back
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: shipwreckA_anim_back
+    13700002: shipwreckA_anim_front
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    pivotNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
