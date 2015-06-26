@@ -10,6 +10,7 @@ public class carryableObject : MonoBehaviour {
     private Color originalColor;
     private controllerFinder controllers;
     private bool isHeld;
+    public bool hasOnOffState = false;
 	// Use this for initialization
 
     //A goofy shortcut limitation here is that only the first controller to touch
@@ -71,13 +72,16 @@ public class carryableObject : MonoBehaviour {
     {
         transform.parent = lastTouchedByController.transform;
         isHeld = true;
-        gameObject.transform.position = lastTouchedByController.transform.forward;
+        if (hasOnOffState) gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedByController.GetComponent<controllerIndexKeeper>().controllerIndex);
+    //    gameObject.transform.position = new Vector3(0,0,-.1f);
+        gameObject.transform.rotation= Quaternion.Euler(new Vector3(0,0,0));
     }
 
     private void dropObject()
     {
         transform.parent = null;
         isHeld = false;
+        if (hasOnOffState) gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedByController.GetComponent<controllerIndexKeeper>().controllerIndex);
         //Unparent child
     }
 }

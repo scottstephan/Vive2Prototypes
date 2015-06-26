@@ -18,28 +18,29 @@ public class controllerFinder : MonoBehaviour {
 	void Update () {
         if (leftController == -1) { 
             leftController = SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Leftmost);
-            Debug.Log("Left controller is: " + leftController);
-            if (leftController != -1 || leftController != 0)
+            if (leftController != -1 && leftController != 0)
             {
+                Debug.Log("Left controller is: " + leftController);
+
                 leftControllerObject = GameObject.Find("Device" + leftController.ToString());
                 leftControllerObject.AddComponent<BoxCollider>();
                 leftControllerObject.AddComponent<controllerIndexKeeper>().controllerIndex = leftController;
                 leftControllerObject.tag = "controller";
-
-             //   leftControllerObject.AddComponent<controllerCollisionManager>();
             }
             
         }
         if (rightController == -1)
         {
             rightController = SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Rightmost);
-            if (rightController != -1 || rightController != 0)
+
+            if (rightController != -1 && rightController != 0)
             {
+                Debug.Log("Right controller is: " + rightController);
+
                 rightControllerObject = GameObject.Find("Device" + rightController.ToString());
                 rightControllerObject.AddComponent<BoxCollider>();
                 rightControllerObject.AddComponent<controllerIndexKeeper>().controllerIndex = rightController;
                 rightControllerObject.tag = "controller";
-             //   rightControllerObject.AddComponent<controllerCollisionManager>();
             }
             
         }
