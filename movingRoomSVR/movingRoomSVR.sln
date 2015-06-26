@@ -11,10 +11,6 @@ Project("{720D623E-C9FB-F7C2-8ADE-14E780EE411A}") = "movingRoomSVR", "Assembly-U
 EndProject
 Project("{720D623E-C9FB-F7C2-8ADE-14E780EE411A}") = "movingRoomSVR", "Assembly-UnityScript.unityproj", "{31D931F2-C206-3DC7-5AB7-4BCBB98FA55B}"
 EndProject
-Project("{720D623E-C9FB-F7C2-8ADE-14E780EE411A}") = "movingRoomSVR", "Assembly-UnityScript-Editor-firstpass.unityproj", "{FA41C5B4-A563-7022-328A-52EAC36145A1}"
-EndProject
-Project("{720D623E-C9FB-F7C2-8ADE-14E780EE411A}") = "movingRoomSVR", "Assembly-UnityScript-Editor.unityproj", "{C98C2C9D-3ADE-D99C-1321-BE17CC0EFD25}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,19 +37,11 @@ Global
 		{31D931F2-C206-3DC7-5AB7-4BCBB98FA55B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31D931F2-C206-3DC7-5AB7-4BCBB98FA55B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31D931F2-C206-3DC7-5AB7-4BCBB98FA55B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA41C5B4-A563-7022-328A-52EAC36145A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA41C5B4-A563-7022-328A-52EAC36145A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA41C5B4-A563-7022-328A-52EAC36145A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA41C5B4-A563-7022-328A-52EAC36145A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C98C2C9D-3ADE-D99C-1321-BE17CC0EFD25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C98C2C9D-3ADE-D99C-1321-BE17CC0EFD25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C98C2C9D-3ADE-D99C-1321-BE17CC0EFD25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C98C2C9D-3ADE-D99C-1321-BE17CC0EFD25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																															GlobalSection(MonoDevelopProperties) = preSolution
+																																																																													GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
