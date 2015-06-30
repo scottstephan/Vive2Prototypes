@@ -31,6 +31,10 @@ public class playerInput : MonoBehaviour {
 			if(foodOut != null) foodOut();
 			dropFood();
 		}
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			Time.timeScale = 0.0f;
+		}
 	}
 
 	private void createFood(){

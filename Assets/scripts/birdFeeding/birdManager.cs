@@ -11,7 +11,7 @@ public class birdManager : MonoBehaviour {
 	public float bobSmooth = .25f;
 	public float maxBobHeight = 1.5f;
 	//Roll a random offset for the arrival to avoid stacks
-	private float yOffset = 1.5f;
+	private float yOffset = 1f;
 	private float xOffset = 1.5f;
 	private float zOffset = 1.5f;
 	public float randomPosMod = .5f;
