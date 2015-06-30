@@ -8,6 +8,11 @@ public class playerInput : MonoBehaviour {
 	public GameObject food;
 	private GameObject thisFood;
 	public float foodThrowForce;
+
+	public delegate void foodThrown();
+	public static event foodThrown foodOut;
+	public static GameObject lastThrownFoodObject;
+
 	// Use this for initialization
 	void Start () {
 		foodSpawnPt = GameObject.Find ("holdSpawnPoint").transform.position;
@@ -22,6 +27,8 @@ public class playerInput : MonoBehaviour {
 		}
 		if (Input.GetMouseButton (0) && hasFoodReady) 
 		{
+			lastThrownFoodObject = thisFood; //dumb place for this, but needs to be set before event callout
+			if(foodOut != null) foodOut();
 			dropFood();
 		}
 	}
@@ -29,6 +36,7 @@ public class playerInput : MonoBehaviour {
 	private void createFood(){
 		hasFoodReady = true;
 		foodArm.SetActive (true);
+		foodSpawnPt = GameObject.Find ("holdSpawnPoint").transform.position;
 		thisFood = GameObject.Instantiate (food, foodSpawnPt, new Quaternion (0, 0, 0, 0)) as GameObject;
 		thisFood.transform.parent = foodArm.transform;
 		thisFood.GetComponent<Rigidbody> ().useGravity = false;
@@ -42,7 +50,7 @@ public class playerInput : MonoBehaviour {
 		thisFood.transform.parent = null;
 		thisFood.GetComponent<Rigidbody> ().useGravity = true;
 		thisFood.GetComponent<Rigidbody> ().isKinematic = false;
-		thisFood.GetComponent<Rigidbody> ().AddForce (Vector3.forward * foodThrowForce);
+		thisFood.GetComponent<Rigidbody> ().AddForce (foodArm.transform.forward * foodThrowForce);
 		//deparent and turn on food object
 		//send message that food is out
 		hasFoodReady = false;

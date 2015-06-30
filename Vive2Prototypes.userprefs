@@ -1,9 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\birdFeeding\playerInput.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\birdFeeding\birdManager.cs">
     <Files>
-      <File FileName="Assets\scripts\birdFeeding\playerInput.cs" Line="27" Column="3" />
-      <File FileName="c:\Projects\Vive2Prototypes\Assets\Plugins\SteamVR\Scripts\SteamVR_Controller.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\birdFeeding\birdManager.cs" Line="11" Column="45" />
+      <File FileName="Assets\scripts\birdFeeding\eventManager.cs" Line="6" Column="46" />
+      <File FileName="Assets\scripts\birdFeeding\playerInput.cs" Line="53" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

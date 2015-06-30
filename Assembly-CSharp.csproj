@@ -49,8 +49,6 @@
      <Compile Include="Assets\AstoundSound\AstoundSoundRTIDemo\Scripts\CameraMotion.cs" />
      <Compile Include="Assets\AstoundSound\AstoundSoundRTIDemo\Scripts\MouseLook1.cs" />
      <Compile Include="Assets\AstoundSound\AstoundSoundRTIDemo\Scripts\RandomAudioPlayer.cs" />
-     <Compile Include="Assets\LensFlare\FlareObj.cs" />
-     <Compile Include="Assets\LensFlare\LensFlareManager.cs" />
      <Compile Include="Assets\flashlight\flashlightManager.cs" />
      <Compile Include="Assets\iTweenEditor\Examples\StartAndStopTween.cs" />
      <Compile Include="Assets\iTweenEditor\Helper Classes\EventParamMappings.cs" />
@@ -61,6 +59,8 @@
      <Compile Include="Assets\iTweenEditor\iTweenPath.cs" />
      <Compile Include="Assets\models\Destroyed_city_FREE\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
      <Compile Include="Assets\models\Destroyed_city_FREE\Standard Assets\Water (Pro Only)\Sources\Scripts\Water.cs" />
+     <Compile Include="Assets\scripts\birdFeeding\birdManager.cs" />
+     <Compile Include="Assets\scripts\birdFeeding\eventManager.cs" />
      <Compile Include="Assets\scripts\birdFeeding\playerInput.cs" />
      <Compile Include="Assets\scripts\carryableObject.cs" />
      <Compile Include="Assets\scripts\controllerCollisionManager.cs" />
