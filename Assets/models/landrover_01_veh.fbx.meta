@@ -13,6 +13,82 @@ labels:
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
+    100000: Collada_visual_scene_group
+    100002: Collada_visual_scene_group 1
+    100004: door_handle_ds
+    100006: door_handle_ds_1
+    100008: door_handle_ps_01
+    100010: door_handle_ps_01_1
+    100012: driver_side_door
+    100014: driver_side_door_1
+    100016: group
+    100018: group_1
+    100020: LandRover
+    100022: //RootNode
+    100024: LandRover_1
+    100026: matrixTransform
+    100028: matrixTransform_1
+    100030: matrixTransform_2
+    100032: matrixTransform_3
+    100034: matrixTransform_4
+    100036: matrixTransform_5
+    100038: matrixTransform_6
+    100040: passenger_side_door
+    100042: passenger_side_door_1
+    100044: sceneRoot
+    100046: sceneRoot 1
+    100048: tire1
+    100050: tire1_1
+    100052: tire3
+    100054: tire3_1
+    100056: tire_2
+    100058: tire_2_1
+    400000: Collada_visual_scene_group
+    400002: Collada_visual_scene_group 1
+    400004: door_handle_ds
+    400006: door_handle_ds_1
+    400008: door_handle_ps_01
+    400010: door_handle_ps_01_1
+    400012: driver_side_door
+    400014: driver_side_door_1
+    400016: group
+    400018: group_1
+    400020: LandRover
+    400022: //RootNode
+    400024: LandRover_1
+    400026: matrixTransform
+    400028: matrixTransform_1
+    400030: matrixTransform_2
+    400032: matrixTransform_3
+    400034: matrixTransform_4
+    400036: matrixTransform_5
+    400038: matrixTransform_6
+    400040: passenger_side_door
+    400042: passenger_side_door_1
+    400044: sceneRoot
+    400046: sceneRoot 1
+    400048: tire1
+    400050: tire1_1
+    400052: tire3
+    400054: tire3_1
+    400056: tire_2
+    400058: tire_2_1
+    2300000: door_handle_ds_1
+    2300002: door_handle_ps_01_1
+    2300004: driver_side_door_1
+    2300006: LandRover_1
+    2300008: passenger_side_door_1
+    2300010: tire1_1
+    2300012: tire3_1
+    2300014: tire_2_1
+    3300000: door_handle_ds_1
+    3300002: door_handle_ps_01_1
+    3300004: driver_side_door_1
+    3300006: LandRover_1
+    3300008: passenger_side_door_1
+    3300010: tire1_1
+    3300012: tire3_1
+    3300014: tire_2_1
     4300000: LandRover_1
     4300002: tire_2_1
     4300004: passenger_side_door_1
@@ -21,6 +97,7 @@ ModelImporter:
     4300010: door_handle_ds_1
     4300012: tire3_1
     4300014: tire1_1
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 3
@@ -30,6 +107,10 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
