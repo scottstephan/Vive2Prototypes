@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class carryableObject : MonoBehaviour {
+	public enum carryableTypes{metalDetetctor, food};
+	public carryableTypes thisObjectType;
+
     public bool debugMode = false;
     private bool canBePickedup;
     private GameObject curHandTouching;
@@ -71,17 +74,17 @@ public class carryableObject : MonoBehaviour {
     private void pickUpObject()
     {
         transform.parent = lastTouchedByController.transform;
-        isHeld = true;
-        if (hasOnOffState) gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedByController.GetComponent<controllerIndexKeeper>().controllerIndex);
-    //    gameObject.transform.position = new Vector3(0,0,-.1f);
-        gameObject.transform.rotation= Quaternion.Euler(new Vector3(0,0,0));
+		gameObject.transform.rotation= Quaternion.Euler(new Vector3(0,0,0));
+        isHeld = true; //switch bases on type
+		if(thisObjectType == carryableTypes.metalDetetctor)gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedByController.GetComponent<controllerIndexKeeper>().controllerIndex);
+        
     }
 
     private void dropObject()
     {
         transform.parent = null;
         isHeld = false;
-        if (hasOnOffState) gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedByController.GetComponent<controllerIndexKeeper>().controllerIndex);
+		if(thisObjectType == carryableTypes.metalDetetctor) gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedByController.GetComponent<controllerIndexKeeper>().controllerIndex);
         //Unparent child
     }
 }

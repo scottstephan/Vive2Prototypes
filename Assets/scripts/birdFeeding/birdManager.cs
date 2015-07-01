@@ -15,6 +15,10 @@ public class birdManager : MonoBehaviour {
 	private float xOffset = 1.5f;
 	private float zOffset = 1.5f;
 	public float randomPosMod = .5f;
+	//For random circle pos
+	public float circleRadiusX = 5;
+	public float circleRadiusZ = 5;
+	public float posTheta = 360;
 	// Use this for initialization
 	void Start () {
 		originPos = gameObject.transform.position;
@@ -43,8 +47,10 @@ public class birdManager : MonoBehaviour {
 		{ 
 			StopAllCoroutines(); // In case a travel back is running
 			curFoodTarget = playerInput.lastThrownFoodObject;
+			curFoodTarget.GetComponent<drawCircle> ().isDrawingCircle = true;
+
+			travelToFoodDest = getPositionAroundCircle(playerInput.lastThrownFoodObject.transform.position,Random.Range(0,posTheta),circleRadiusX,circleRadiusZ); //get a random position in a circle around wherever the food is. Probs wanna wait a few frames or update dest after food has settled
 			departurePos = gameObject.transform.position;
-			travelToFoodDest = curFoodTarget.transform.position + rollRandomOffsets(); // will only eat a new food object. could use a list to keep track of multiples. 
 			StartCoroutine("travelToFood");
 		}
 		else if(travelToFoodDest != Vector3.zero)
@@ -56,22 +62,10 @@ public class birdManager : MonoBehaviour {
 	IEnumerator travelToFood(){
 		float i = 0f;
 		float rate = 1/birdFlySpeed; //Always the same. Should add a dist. mod.
-		Vector3 actualDest = travelToFoodDest + rollRandomOffsets ();
-		bool destSettled = false;
 
 		while (i < 1f) {
 			i += Time.deltaTime * rate;
-
-			if(curFoodTarget.transform.position != travelToFoodDest)
-			{ 
-				travelToFoodDest = curFoodTarget.transform.position ; //update the travel-to as the food settles
-			}
-			else if(destSettled == false)//i.e: wait until the dust settles to establish the new pos
-			{
-				actualDest = travelToFoodDest + rollRandomOffsets(); 
-				destSettled = true; //this has to be a better way to do this
-			}
-			gameObject.transform.position = Vector3.Lerp(departurePos, actualDest, i);
+			gameObject.transform.position = Vector3.Lerp(departurePos, travelToFoodDest, i);
 			yield return null; 
 		}
 		StartCoroutine ("feed");
@@ -88,7 +82,7 @@ public class birdManager : MonoBehaviour {
 			gameObject.transform.position = new Vector3(gameObject.transform.position.x, Mathf.PingPong(i,maxBobHeight) + initY, gameObject.transform.position.z);
 			yield return null; 
 		}
-
+		Destroy (curFoodTarget);
 		StartCoroutine ("travelToOrigin");
 	}
 
@@ -111,5 +105,13 @@ public class birdManager : MonoBehaviour {
 		if(Random.Range(-1,1) == -1) randomRoll.x *= -1;
 		if(Random.Range(-1,1) == -1) randomRoll.z *= -1;
 		return randomRoll;
+	}
+
+	private Vector3 getPositionAroundCircle(Vector3 circleCenter, float theta, float radiusX, float radiusZ){
+		Vector3 circlePos = Vector3.zero;
+		circlePos.x = circleCenter.x + Mathf.Cos(theta) * radiusX;
+		circlePos.z = circleCenter.z + Mathf.Sin(theta) * radiusZ;
+		circlePos.y = yOffset;
+		return circlePos;
 	}
 }

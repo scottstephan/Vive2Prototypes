@@ -28,14 +28,14 @@ public class playerInput : MonoBehaviour {
 		if (Input.GetMouseButton (0) && hasFoodReady) 
 		{
 			lastThrownFoodObject = thisFood; //dumb place for this, but needs to be set before event callout
-			if(foodOut != null) foodOut();
+			StartCoroutine("foodEventDelay");
 			dropFood();
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			Time.timeScale = 0.0f;
+			Time.timeScale =	 Time.timeScale == 0 ? Time.timeScale = 1 : Time.timeScale = 0;
 		}
-	}
+	} 
 
 	private void createFood(){
 		hasFoodReady = true;
@@ -46,7 +46,6 @@ public class playerInput : MonoBehaviour {
 		thisFood.GetComponent<Rigidbody> ().useGravity = false;
 		thisFood.GetComponent<Rigidbody> ().isKinematic = true;
 
-
 	}
 
 	private void dropFood()
@@ -55,9 +54,16 @@ public class playerInput : MonoBehaviour {
 		thisFood.GetComponent<Rigidbody> ().useGravity = true;
 		thisFood.GetComponent<Rigidbody> ().isKinematic = false;
 		thisFood.GetComponent<Rigidbody> ().AddForce (foodArm.transform.forward * foodThrowForce);
+		thisFood.GetComponent<drawCircle> ().isDrawingCircle = true;
 		//deparent and turn on food object
 		//send message that food is out
 		hasFoodReady = false;
 		foodArm.SetActive (false);
+	}
+
+	IEnumerator foodEventDelay(){ // lets the food settle before broadcasting its location. probs better to just update the position in real-time, but, uh. lazy.
+		yield return new WaitForSeconds(2.5f);
+		if(foodOut != null) foodOut(); //sends event
+
 	}
 }
