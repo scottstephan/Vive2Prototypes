@@ -54,7 +54,6 @@ public class playerInput : MonoBehaviour {
 		thisFood.GetComponent<Rigidbody> ().useGravity = true;
 		thisFood.GetComponent<Rigidbody> ().isKinematic = false;
 		thisFood.GetComponent<Rigidbody> ().AddForce (foodArm.transform.forward * foodThrowForce);
-		thisFood.GetComponent<drawCircle> ().isDrawingCircle = true;
 		//deparent and turn on food object
 		//send message that food is out
 		hasFoodReady = false;
