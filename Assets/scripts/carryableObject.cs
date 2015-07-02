@@ -26,7 +26,7 @@ public class carryableObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (canBePickedup && !isHeld)
+        if (canBePickedup && !isHeld && lastTouchedIndex != -1)
         {
             if (SteamVR_Controller.Input(lastTouchedIndex).GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
             {
@@ -54,8 +54,9 @@ public class carryableObject : MonoBehaviour {
             canBePickedup = true;
             lastTouchedByController = col.gameObject;
             gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-            controllers = col.gameObject.GetComponent<controllerFinder>();
-            lastTouchedIndex = col.gameObject.GetComponent<controllerIndexKeeper>().controllerIndex;
+
+            lastTouchedIndex = controllerListener.returnIndexByName(lastTouchedByController.name);
+            Debug.Log("Last touched index is: " + lastTouchedIndex);
         }
     }
 
@@ -76,7 +77,7 @@ public class carryableObject : MonoBehaviour {
         transform.parent = lastTouchedByController.transform;
 		gameObject.transform.rotation= Quaternion.Euler(new Vector3(0,0,0));
         isHeld = true; //switch bases on type
-		if(thisObjectType == carryableTypes.metalDetetctor)gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedByController.GetComponent<controllerIndexKeeper>().controllerIndex);
+		if(thisObjectType == carryableTypes.metalDetetctor)gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedIndex);
         
     }
 
@@ -84,7 +85,7 @@ public class carryableObject : MonoBehaviour {
     {
         transform.parent = null;
         isHeld = false;
-		if(thisObjectType == carryableTypes.metalDetetctor) gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedByController.GetComponent<controllerIndexKeeper>().controllerIndex);
+		if(thisObjectType == carryableTypes.metalDetetctor) gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedIndex);
         //Unparent child
     }
 }
