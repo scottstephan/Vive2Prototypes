@@ -4,7 +4,7 @@ using Valve.VR;
 //TO-DO: Write a L/R assignation via SteamVR_Controller(leftmost) etc etc.
 public class controllerListener : MonoBehaviour {
 
-    public class svrController
+    public class svrController //Yes, SteamVR has one of these. This is easier and quicker for 90% of stuff we do with controllers.
     {
        public GameObject controllerObject;
        public int index;
@@ -15,15 +15,14 @@ public class controllerListener : MonoBehaviour {
     public static svrController controller2 = new svrController();
     public static List<svrController> svrControllers = new List<svrController>();
 
-    public bool addCollidersAndTagsToControllers = false;
+    public bool addCollidersAndTagsToControllers = false; //If you're planning on using controllers as collision volumes, check this. It'll auto-add a box collider and tag the controller.
 	// Use this for initialization
-
     
 	void Start () {
 	
 	}
 
-	private void OnDeviceConnected(params object[] args)
+	private void OnDeviceConnected(params object[] args) //Listen to SteamVR for device connection messages
 	{
 		var index = (int)args[0];
 		
@@ -36,7 +35,6 @@ public class controllerListener : MonoBehaviour {
 		{
 			Debug.Log(string.Format("Controller {0} connected.", index));
             writeControllerRef(index);
-
 		}
 		else
 		{
@@ -44,7 +42,7 @@ public class controllerListener : MonoBehaviour {
 
 		}
 	}
-	
+	    //std add/remove delegate listening
 	void OnEnable()
 	{
 		SteamVR_Utils.Event.Listen("device_connected", OnDeviceConnected);
@@ -55,7 +53,7 @@ public class controllerListener : MonoBehaviour {
 		SteamVR_Utils.Event.Remove("device_connected", OnDeviceConnected);
 	}
 
-    private void writeControllerRef(int index)
+    private void writeControllerRef(int index) //Create a ref to the controller in the List<>
     {
        // GameObject Controller = controller1 == null ? controller1 : controller2;
         GameObject Controller = GameObject.Find("Device" + index);
@@ -92,7 +90,7 @@ public class controllerListener : MonoBehaviour {
         controller.tag = "controller";
     }
 
-    public static int returnIndexByName(string controllerName)
+    public static int returnIndexByName(string controllerName) //Returns the controllers index when provided with the name of the gameobject
     {
 
         for (int i = 0; i < svrControllers.Count; i++) // Loop with for.
@@ -107,7 +105,7 @@ public class controllerListener : MonoBehaviour {
         return -1;
     }
 
-    public static void readControllerList()
+    public static void readControllerList() //Lists all the controllerss
     {
         Debug.Log("Reading controller list");
         for (int i = 0; i < svrControllers.Count; i++) // Loop with for.
