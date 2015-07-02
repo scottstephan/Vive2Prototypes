@@ -11,6 +11,7 @@ public class metalDetector : MonoBehaviour {
     public GameObject radarSphere;
     private float flashTime = 1f;
     private bool radarIsFlashing = false;
+	public ushort hapticPulseRate = 0;
 	// Use this for initialization
 	void Start () {
 	   
@@ -26,16 +27,14 @@ public class metalDetector : MonoBehaviour {
         foreach(Transform treasureVector in treasureVectors)
         {
             dist = Vector3.Distance(treasureVector.position, metalDetectorObject.position);
-            if (dist < treasureDetectionThreshhold)
-            {
-                Debug.Log("Close to treasure!");
-                flashTime = .1f + dist;
-                if(!radarIsFlashing) StartCoroutine("flashRadar");
-                SteamVR_Controller.Input(lastHeldIndex).TriggerHapticPulse(1000);
-            }
-        }
-    
+			ushort tempHaptic = (ushort)(1000 - dist * 20); //i.e, there's less of a mod as you get closer to a treasure
+			hapticPulseRate = tempHaptic > hapticPulseRate ? tempHaptic : hapticPulseRate; //pulse according to the closest treasure
+		
+			StartCoroutine("flashRadar");
+			flashTime = .1f + dist;
+			SteamVR_Controller.Input(lastHeldIndex).TriggerHapticPulse(hapticPulseRate);
 
+        }
     }
 
     public void turnOnMD()
@@ -59,11 +58,11 @@ public class metalDetector : MonoBehaviour {
 
     IEnumerator flashRadar()
     {
-        radarIsFlashing = true;
         radarSphere.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
         yield return new WaitForSeconds(flashTime);
         radarSphere.gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
-        radarIsFlashing = false;
+		yield return new WaitForSeconds(flashTime);
+		StartCoroutine ("flashRadar");
 
     }
 }
