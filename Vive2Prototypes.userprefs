@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\birdFeeding\drawCircle.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\carryableObject.cs">
     <Files>
-      <File FileName="Assets\scripts\controllerListener.cs" Line="29" Column="4" />
-      <File FileName="Assets\Plugins\SteamVR\Scripts\SteamVR_Utils.cs" Line="26" Column="5" />
-      <File FileName="Assets\Plugins\SteamVR\Scripts\SteamVR_Controller.cs" Line="38" Column="73" />
-      <File FileName="Assets\scripts\birdFeeding\birdManager.cs" Line="90" Column="16" />
-      <File FileName="Assets\scripts\birdFeeding\playerInput.cs" Line="57" Column="1" />
-      <File FileName="Assets\scripts\birdFeeding\drawCircle.cs" Line="40" Column="54" />
+      <File FileName="Assets\scripts\metalDetector.cs" Line="77" Column="1" />
+      <File FileName="Assets\scripts\controllerListener.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\birdFeeding\birdManager.cs" Line="51" Column="36" />
+      <File FileName="Assets\scripts\birdFeeding\playerInput.cs" Line="60" Column="29" />
+      <File FileName="Assets\scripts\birdFeeding\drawCircle.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\carryableObject.cs" Line="12" Column="12" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

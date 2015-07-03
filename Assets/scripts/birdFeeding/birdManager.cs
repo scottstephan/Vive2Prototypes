@@ -19,9 +19,17 @@ public class birdManager : MonoBehaviour {
 	public float circleRadiusX = 5;
 	public float circleRadiusZ = 5;
 	public float posTheta = 360;
+	//AI stuff
+	public float birdHunger = 0; //At 100, it is 100% sure to go get food.
+	private bool isEating = false;
+	private Color originColor;
 	// Use this for initialization
 	void Start () {
 		originPos = gameObject.transform.position;
+		Material clone = gameObject.GetComponent<MeshRenderer> ().material; //instance and assign
+		gameObject.GetComponent<MeshRenderer> ().material = clone; //material to avoid perma changes.
+		birdHunger = Random.Range (0, 100);
+		originColor = gameObject.GetComponent<MeshRenderer> ().material.color;
 	}
 
 	void OnEnable()
@@ -37,13 +45,19 @@ public class birdManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-	
+		if (!isEating) 
+		{ 
+			birdHunger += 1 * Time.deltaTime;
+			Color c = Color.Lerp(originColor,Color.red,birdHunger / 100);
+			gameObject.GetComponent<MeshRenderer> ().material.color = c;
+		}
 	}
 
 	private void birdSeesFood(){ //every bird will converge. Maybe have a high-level bird manager that picks a few. 
 		Debug.Log (gameObject.name + " sees the food"); 
+		isEating = Random.Range (0, 100) < birdHunger ? true : false;
 
-		if (travelToFoodDest == Vector3.zero) 
+		if (travelToFoodDest == Vector3.zero && isEating) 
 		{ 
 			StopAllCoroutines(); // In case a travel back is running
 			curFoodTarget = playerInput.lastThrownFoodObject;
@@ -83,6 +97,8 @@ public class birdManager : MonoBehaviour {
 			yield return null; 
 		}
 		Destroy (curFoodTarget);
+		isEating = false;
+		birdHunger = 0;
 		StartCoroutine ("travelToOrigin");
 	}
 

@@ -105,6 +105,19 @@ public class controllerListener : MonoBehaviour {
         return -1;
     }
 
+	public static svrController returnSVRObjectByName(string controllerName){
+		for (int i = 0; i < svrControllers.Count; i++) // Loop with for.
+		{
+			//  Debug.Log("In returnIndexByName loop. Looking for " + controllerName + " currently at " + svrControllers[i].controllerObject.name);
+			if (controllerName == svrControllers[i].controllerObject.name)
+			{
+				return svrControllers[i];
+			}
+		}
+		
+		return null;
+	}
+
     public static void readControllerList() //Lists all the controllerss
     {
         Debug.Log("Reading controller list");

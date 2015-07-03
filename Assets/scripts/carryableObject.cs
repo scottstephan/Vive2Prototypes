@@ -5,7 +5,7 @@ public class carryableObject : MonoBehaviour {
 	public enum carryableTypes{metalDetetctor, food};
 	public carryableTypes thisObjectType;
 
-    public bool debugMode = false;
+    public bool debugMode = false; //should be a sim-wide flag or, at least, a delegate
     private bool canBePickedup;
     private GameObject curHandTouching;
     private GameObject lastTouchedByController;
@@ -28,7 +28,7 @@ public class carryableObject : MonoBehaviour {
 	void Update () {
         if (canBePickedup && !isHeld && lastTouchedIndex != -1)
         {
-            if (SteamVR_Controller.Input(lastTouchedIndex).GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
+            if (SteamVR_Controller.Input(lastTouchedIndex).GetPressDown(SteamVR_Controller.ButtonMask.Trigger)) //Maybe this ought to be handed back to controllerListener?
             {
                 Debug.Log("Picking up object");
                 pickUpObject();
@@ -40,22 +40,23 @@ public class carryableObject : MonoBehaviour {
             if (SteamVR_Controller.Input(lastTouchedIndex).GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
             {
                 Debug.Log("Dropping object");
+					//Here we'd check for whether or not it picks up vel from controller arc etc etc.
                 dropObject();
             }
         }
 	}
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter(Collider col) //Maybe add classes- Interactable vs. Holdable etc. TGhe core logic here is identical. 
     {
-        Debug.Log("Somethings in pick up collider");
+        //Debug.Log("Somethings in pick up collider");
         if (col.gameObject.tag == "controller" && !canBePickedup && !isHeld)
         {
             if (debugMode) Debug.Log("Pick up object being tapped by controller");
             canBePickedup = true;
             lastTouchedByController = col.gameObject;
-            gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            gameObject.GetComponent<MeshRenderer>().material.color = Color.red; 
 
-            lastTouchedIndex = controllerListener.returnIndexByName(lastTouchedByController.name);
+            lastTouchedIndex = controllerListener.returnIndexByName(lastTouchedByController.name); //Should be a list of valid touches
             Debug.Log("Last touched index is: " + lastTouchedIndex);
         }
     }
@@ -66,7 +67,7 @@ public class carryableObject : MonoBehaviour {
         {
             if(debugMode) Debug.Log("Controller left my trigger");
             canBePickedup = false;
-            lastTouchedByController = null;
+            lastTouchedByController = null; //rmv from list
             gameObject.GetComponent<MeshRenderer>().material.color = originalColor;
 
         }
@@ -86,6 +87,5 @@ public class carryableObject : MonoBehaviour {
         transform.parent = null;
         isHeld = false;
 		if(thisObjectType == carryableTypes.metalDetetctor) gameObject.GetComponent<metalDetector>().toggleMD(lastTouchedIndex);
-        //Unparent child
     }
 }
