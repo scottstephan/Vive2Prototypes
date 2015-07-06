@@ -85,14 +85,13 @@
      <Compile Include="Assets\scripts\birdFeeding\playerInput.cs" />
      <Compile Include="Assets\scripts\carryableObject.cs" />
      <Compile Include="Assets\scripts\controllerCollisionManager.cs" />
-     <Compile Include="Assets\scripts\controllerFinder.cs" />
      <Compile Include="Assets\scripts\controllerIndexKeeper.cs" />
      <Compile Include="Assets\scripts\controllerListener.cs" />
      <Compile Include="Assets\scripts\controllerManager.cs" />
-     <Compile Include="Assets\scripts\groundMover.cs" />
      <Compile Include="Assets\scripts\listenForSVCCollision.cs" />
      <Compile Include="Assets\scripts\metalDetector.cs" />
-     <Compile Include="Assets\scripts\pointMover.cs" />
+     <Compile Include="Assets\scripts\old\controllerFinder.cs" />
+     <Compile Include="Assets\scripts\old\groundMover.cs" />
      <None Include="Assets\SteamVR\Resources\SteamVR_Fade.shader" />
      <None Include="Assets\models\Destroyed_city_FREE\Destroyed_city_FREE_Info.txt" />
      <None Include="Assets\ShaderForge\Editor\InternalResources\Shader Presets\PresetParticleMultiplicative.shader" />
