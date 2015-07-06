@@ -73,4 +73,14 @@ public class metalDetector : MonoBehaviour {
         SteamVR_Controller.Input(lastHeldIndex).TriggerHapticPulse(hapticPulseRate);
         yield return new WaitForSeconds(curPulseDelay);
     }
+
+    public void svrControllerDown()
+    {
+        Debug.Log(Gameobject.name + "has heard the svrDown Broadcast");
+    }
+
+    public void svrControllerUp()
+    {
+        Debug.Log(Gameobject.name + "has heard the svr Up Broadcast");
+    }
 }

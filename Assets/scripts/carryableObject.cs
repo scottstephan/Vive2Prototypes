@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/*THIS HAS BEEN DEPRECATED BY listenForSVCCOllision !!! */
 public class carryableObject : MonoBehaviour {
 	public enum carryableTypes{metalDetetctor, food};
 	public carryableTypes thisObjectType;
@@ -14,6 +14,7 @@ public class carryableObject : MonoBehaviour {
     private controllerFinder controllers;
     private bool isHeld;
     public bool hasOnOffState = false;
+    private bool isPhysicsObject = false;
 	// Use this for initialization
 
     //A goofy shortcut limitation here is that only the first controller to touch
@@ -22,6 +23,7 @@ public class carryableObject : MonoBehaviour {
 
 	void Start () {
         originalColor = gameObject.GetComponent<MeshRenderer>().material.color;
+        if(gameObject.GetComponent<Rigidbody>() != null && gameObject.GetComponent<Rigidbody>().isKinematic == false) isPhysicsObject 
 	}
 	
 	// Update is called once per frame
@@ -51,11 +53,14 @@ public class carryableObject : MonoBehaviour {
         //Debug.Log("Somethings in pick up collider");
         if (col.gameObject.tag == "controller" && !canBePickedup && !isHeld)
         {
-            if (debugMode) Debug.Log("Pick up object being tapped by controller");
+            if (debugMode)
+            {
+                Debug.Log("Pick up object being tapped by controller");
+                gameObject.GetComponent<MeshRenderer>().material.color = Color.red; 
+            }
             canBePickedup = true;
             lastTouchedByController = col.gameObject;
-            gameObject.GetComponent<MeshRenderer>().material.color = Color.red; 
-
+            
             lastTouchedIndex = controllerListener.returnIndexByName(lastTouchedByController.name); //Should be a list of valid touches
             Debug.Log("Last touched index is: " + lastTouchedIndex);
         }
@@ -65,10 +70,13 @@ public class carryableObject : MonoBehaviour {
     {
         if (col.gameObject.tag == "controller" && canBePickedup && !isHeld)
         {
-            if(debugMode) Debug.Log("Controller left my trigger");
+            if (debugMode)
+            {
+                Debug.Log("Controller left my trigger");
+                gameObject.GetComponent<MeshRenderer>().material.color = originalColor;
+            }
             canBePickedup = false;
             lastTouchedByController = null; //rmv from list
-            gameObject.GetComponent<MeshRenderer>().material.color = originalColor;
 
         }
     }

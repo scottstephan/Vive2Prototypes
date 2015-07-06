@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 [RequireComponent (typeof (Rigidbody))]
 [RequireComponent (typeof (BoxCollider))]
-
+/*Listen for an a collision from an SVR controller. If it has been collided by a controller and that controller clicks, it broadcasts down to the gameobject where the object can handle the reaction */
 public class listenForSVCCollision : MonoBehaviour {
 
 	public delegate void svrValidTriggerPull();
@@ -34,6 +34,7 @@ public class listenForSVCCollision : MonoBehaviour {
 				if (SteamVR_Controller.Input(validTouchingControllers[i].index).GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
 				{
 					//Broadcast down object from here
+                    BroadcastMessage("svrControllerDown"); 
 				}
 			}
 
@@ -45,7 +46,7 @@ public class listenForSVCCollision : MonoBehaviour {
 			{
 				if (SteamVR_Controller.Input(validTouchingControllers[i].index).GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
 				{
-					//Broadcast down object from here
+                    BroadcastMessage("svrControllerUp");
 				}
 			}
 		}
