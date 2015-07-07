@@ -9,6 +9,7 @@ public class controllerListener : MonoBehaviour {
        public GameObject controllerObject;
        public int index;
        public bool isSet = false;
+       public Vector3 curVelocity;
     }
 
     public static svrController controller1 = new svrController();
@@ -55,8 +56,9 @@ public class controllerListener : MonoBehaviour {
 
     private void writeControllerRef(int index) //Create a ref to the controller in the List<>
     {
-       // GameObject Controller = controller1 == null ? controller1 : controller2;
+             // GameObject Controller = controller1 == null ? controller1 : controller2;
         GameObject Controller = GameObject.Find("Device" + index);
+        svrController tempController = null;
         Debug.Log("Controller with index" + index + " assigned to gameobject " + Controller.name);
       
         if (!controller1.isSet)
@@ -65,7 +67,7 @@ public class controllerListener : MonoBehaviour {
             controller1.controllerObject = Controller;
             controller1.index = index;
             svrControllers.Add(controller1);
-        //    readControllerList();
+            tempController = controller1;
         }
         else if(!controller2.isSet)
         {
@@ -73,10 +75,10 @@ public class controllerListener : MonoBehaviour {
             controller2 .controllerObject= Controller;
             controller2.index = index;
             svrControllers.Add(controller2);
-        //    readControllerList();
+            tempController = controller2;
         }
-        
-        if (addCollidersAndTagsToControllers) addCollisionSetupToController(Controller);
+       
+        if (addCollidersAndTagsToControllers) addCollisionSetupToController(tempController);
     }
 
     private void eraseControllerRef(int index)
@@ -84,16 +86,20 @@ public class controllerListener : MonoBehaviour {
         
     }
 
-    private void addCollisionSetupToController(GameObject controller)
+    private void addCollisionSetupToController(svrController controller)
     {
-        controller.AddComponent<BoxCollider>();
-        controller.tag = "controller";
+        controller.controllerObject.AddComponent<controllerCollisionManager>();
+        controller.controllerObject.AddComponent<BoxCollider>();
+        controller.controllerObject.AddComponent<Rigidbody>();
+
+        controller.controllerObject.GetComponent<controllerCollisionManager>().idController(controller);
+        controller.controllerObject.tag = "controller";
     }
 
     public static int returnIndexByName(string controllerName) //Returns the controllers index when provided with the name of the gameobject
     {
 
-        for (int i = 0; i < svrControllers.Count; i++) // Loop with for.
+        for (int i = 0; i < svrControllers.Count; i++) 
         {
             if (controllerName == svrControllers[i].controllerObject.name)
             {
@@ -105,7 +111,7 @@ public class controllerListener : MonoBehaviour {
     }
 
 	public static svrController returnSVRObjectByName(string controllerName){
-		for (int i = 0; i < svrControllers.Count; i++) // Loop with for.
+		for (int i = 0; i < svrControllers.Count; i++) 
 		{
 			if (controllerName == svrControllers[i].controllerObject.name)
 			{
@@ -119,7 +125,7 @@ public class controllerListener : MonoBehaviour {
     public static void readControllerList() //Lists all the controllerss
     {
         Debug.Log("Reading controller list");
-        for (int i = 0; i < svrControllers.Count; i++) // Loop with for.
+        for (int i = 0; i < svrControllers.Count; i++) 
         {
             Debug.Log("svrControllers[" + i + "] is named: " + svrControllers[i].controllerObject.name);
         }

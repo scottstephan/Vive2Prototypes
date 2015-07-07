@@ -76,11 +76,11 @@ public class metalDetector : MonoBehaviour {
 
     public void svrControllerDown()
     {
-        Debug.Log(Gameobject.name + "has heard the svrDown Broadcast");
+        Debug.Log(gameObject.name + "has heard the svrDown Broadcast");
     }
 
     public void svrControllerUp()
     {
-        Debug.Log(Gameobject.name + "has heard the svr Up Broadcast");
+        Debug.Log(gameObject.name + "has heard the svr Up Broadcast");
     }
 }

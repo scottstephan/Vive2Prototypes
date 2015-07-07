@@ -23,7 +23,7 @@ public class carryableObject : MonoBehaviour {
 
 	void Start () {
         originalColor = gameObject.GetComponent<MeshRenderer>().material.color;
-        if(gameObject.GetComponent<Rigidbody>() != null && gameObject.GetComponent<Rigidbody>().isKinematic == false) isPhysicsObject 
+
 	}
 	
 	// Update is called once per frame
