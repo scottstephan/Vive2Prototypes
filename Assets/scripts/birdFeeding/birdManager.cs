@@ -34,13 +34,13 @@ public class birdManager : MonoBehaviour {
 
 	void OnEnable()
 	{
-		playerInput.foodOut += birdSeesFood;
+	    svr_birdFeeder.foodOut += birdSeesFood;
 	}
 	
 	
 	void OnDisable()
 	{
-		playerInput.foodOut -= birdSeesFood;
+        svr_birdFeeder.foodOut -= birdSeesFood;
 	}
 
 	// Update is called once per frame
@@ -53,17 +53,17 @@ public class birdManager : MonoBehaviour {
 		}
 	}
 
-	private void birdSeesFood(){ //every bird will converge. Maybe have a high-level bird manager that picks a few. 
+	private void birdSeesFood(){ 
 		Debug.Log (gameObject.name + " sees the food"); 
 		isEating = Random.Range (0, 100) < birdHunger ? true : false;
 
 		if (travelToFoodDest == Vector3.zero && isEating) 
 		{ 
 			StopAllCoroutines(); // In case a travel back is running
-			curFoodTarget = playerInput.lastThrownFoodObject;
-			curFoodTarget.GetComponent<drawCircle> ().isDrawingCircle = true;
+            curFoodTarget = birdSimManager.lastTossedFood;
+			//curFoodTarget.GetComponent<drawCircle> ().isDrawingCircle = true;
 
-			travelToFoodDest = getPositionAroundCircle(playerInput.lastThrownFoodObject.transform.position,Random.Range(0,posTheta),circleRadiusX,circleRadiusZ); //get a random position in a circle around wherever the food is. Probs wanna wait a few frames or update dest after food has settled
+            travelToFoodDest = getPositionAroundCircle(birdSimManager.lastTossedFood.transform.position, Random.Range(0, posTheta), circleRadiusX, circleRadiusZ); //get a random position in a circle around wherever the food is. Probs wanna wait a few frames or update dest after food has settled
 			departurePos = gameObject.transform.position;
 			StartCoroutine("travelToFood");
 		}

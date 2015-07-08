@@ -3,6 +3,10 @@ using System.Collections;
 
 public class svr_birdFeeder : MonoBehaviour {
     private controllerListener.svrController activatingController;
+    public delegate void foodThrown();
+    public static event foodThrown foodOut;
+    public ParticleSystem foodEmitter;
+    
 	// Use this for initialization
 	void Start () {
 	
@@ -13,27 +17,24 @@ public class svr_birdFeeder : MonoBehaviour {
 	
 	}
 
-    public void svrControllerDown(controllerListener.svrController controllerThatBroadcasted)
+    public void objectIsBeingHeld()
     {
-        Debug.Log(gameObject.name + "has heard the svrDown Broadcast");
-        activatingController = controllerThatBroadcasted;
+        Debug.Log(gameObject.name + "is being held");
         
     }
 
-    public void svrControllerUp(controllerListener.svrController controllerThatBroadcasted)
+    public void objectIsReleased()
     {
-        Debug.Log(gameObject.name + "has heard the svr Up Broadcast");
-       
+        Debug.Log(gameObject.name + "is being released");
+        StartCoroutine("foodEventDelay");
+        foodEmitter.Play();
         activatingController = null;
     }
 
-    private void objectIsActivated()
-    {
-
-    }
-
-    private void objectIsDeactivated()
-    {
-
+    IEnumerator foodEventDelay()
+    { // lets the food settle before broadcasting its location. probs better to just update the position in real-time, but, uh. lazy.
+        yield return new WaitForSeconds(2.5f);
+        birdSimManager.lastTossedFood = gameObject;
+        if (foodOut != null) foodOut(); //sends event
     }
 }

@@ -83,12 +83,14 @@
      <Compile Include="Assets\scripts\birdFeeding\drawCircle.cs" />
      <Compile Include="Assets\scripts\birdFeeding\eventManager.cs" />
      <Compile Include="Assets\scripts\birdFeeding\playerInput.cs" />
+     <Compile Include="Assets\scripts\birdSimManager.cs" />
      <Compile Include="Assets\scripts\carryableObject.cs" />
      <Compile Include="Assets\scripts\controllerCollisionManager.cs" />
      <Compile Include="Assets\scripts\controllerIndexKeeper.cs" />
      <Compile Include="Assets\scripts\controllerListener.cs" />
      <Compile Include="Assets\scripts\listenForSVCCollision.cs" />
      <Compile Include="Assets\scripts\metalDetector.cs" />
+     <Compile Include="Assets\scripts\object_Pickupable.cs" />
      <Compile Include="Assets\scripts\old\controllerFinder.cs" />
      <Compile Include="Assets\scripts\old\controllerManager.cs" />
      <Compile Include="Assets\scripts\old\groundMover.cs" />

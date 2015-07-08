@@ -10,6 +10,7 @@ public class controllerCollisionManager : MonoBehaviour {
     private bool isUsingInteractableObject = false;
     private Vector3 cVel;
     private Vector3 oldPos;
+    private bool objInCollider = false;
 	// Use this for initialization
 	void Start () {
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
@@ -59,8 +60,9 @@ public class controllerCollisionManager : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "svrInteractableObject") 
+        if (col.gameObject.tag == "svrInteractableObject" && !objInCollider) 
         {
+            objInCollider = true;
             lastTouchedInteractableObject = col.gameObject;
             isTouchingInteractableObject = true;
         }
@@ -70,6 +72,7 @@ public class controllerCollisionManager : MonoBehaviour {
     {
         if (lastTouchedInteractableObject != null && col.gameObject.name == lastTouchedInteractableObject.name) 
         {
+            objInCollider = false;
             isTouchingInteractableObject = false;
         }
     }
