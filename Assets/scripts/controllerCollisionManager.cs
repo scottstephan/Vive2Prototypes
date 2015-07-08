@@ -6,6 +6,7 @@ using System.Collections;
 public class controllerCollisionManager : MonoBehaviour {
     public controllerListener.svrController thisController;
     private GameObject lastTouchedInteractableObject;
+    private bool isTouchingActivatableObject = false;
     private bool isTouchingInteractableObject = false;
     private bool isUsingInteractableObject = false;
     private Vector3 cVel;
@@ -15,11 +16,12 @@ public class controllerCollisionManager : MonoBehaviour {
 	void Start () {
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
         gameObject.GetComponent<Rigidbody>().useGravity = false;
-        gameObject.GetComponent<BoxCollider>().isTrigger = true;
+        gameObject.GetComponent<BoxCollider>().isTrigger = true; //Will need to resize to about multi-touch false psoitives
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () { //this is getting busy. With so many cases, maybe check IP and switch?
+
 	    if(isTouchingInteractableObject)
         {
             if (SteamVR_Controller.Input(thisController.index).GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
@@ -44,6 +46,11 @@ public class controllerCollisionManager : MonoBehaviour {
                 lastTouchedInteractableObject.BroadcastMessage("svrControllerUp",thisController);
             }
         }
+
+        if(isTouchingActivatableObject)
+        {
+            //broadcats down to lastTouchedObject. Really need a switch/case
+        }
 	}
 
     public void idController(controllerListener.svrController controller)
@@ -60,11 +67,21 @@ public class controllerCollisionManager : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "svrInteractableObject" && !objInCollider) 
+        if(!objInCollider)
         {
-            objInCollider = true;
-            lastTouchedInteractableObject = col.gameObject;
-            isTouchingInteractableObject = true;
+            if (col.gameObject.tag == "svrInteractableObject" && !objInCollider)
+            {
+                objInCollider = true;
+                lastTouchedInteractableObject = col.gameObject;
+                isTouchingInteractableObject = true;
+            }
+
+            if (col.gameObject.tag == "svrActivatableObject")
+            {
+                objInCollider = true;
+                isTouchingActivatableObject = true;
+                lastTouchedInteractableObject = col.gameObject;
+            }
         }
     }
 
@@ -73,7 +90,10 @@ public class controllerCollisionManager : MonoBehaviour {
         if (lastTouchedInteractableObject != null && col.gameObject.name == lastTouchedInteractableObject.name) 
         {
             objInCollider = false;
-            isTouchingInteractableObject = false;
+            if(isTouchingInteractableObject) isTouchingInteractableObject = false;
+            if(isTouchingActivatableObject) isTouchingActivatableObject = false;
         }
+
+        if()
     }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/*POSSIBLE EDGE CASE WHERE IF YOU TOUCH 2 OBJECTS AT ONCE, IT DOWNS ONE AND UPS THE OTHER */
+/*POSSIBLE EDGE CASE WHERE IF YOU TOUCH 2 OBJECTS AT ONCE, IT DOWNS ONE AND UPS THE OTHER. Only allow controller trigger to take in one object at a time */
 
 public class object_Pickupable: MonoBehaviour {
     public bool hasCustomBehaviorOnHold = false;
