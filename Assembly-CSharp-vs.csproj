@@ -90,6 +90,7 @@
      <Compile Include="Assets\scripts\controllerListener.cs" />
      <Compile Include="Assets\scripts\listenForSVCCollision.cs" />
      <Compile Include="Assets\scripts\metalDetector.cs" />
+     <Compile Include="Assets\scripts\object_Activatable.cs" />
      <Compile Include="Assets\scripts\object_Pickupable.cs" />
      <Compile Include="Assets\scripts\old\controllerFinder.cs" />
      <Compile Include="Assets\scripts\old\controllerManager.cs" />

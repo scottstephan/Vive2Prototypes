@@ -46,11 +46,6 @@ public class controllerCollisionManager : MonoBehaviour {
                 lastTouchedInteractableObject.BroadcastMessage("svrControllerUp",thisController);
             }
         }
-
-        if(isTouchingActivatableObject)
-        {
-            //broadcats down to lastTouchedObject. Really need a switch/case
-        }
 	}
 
     public void idController(controllerListener.svrController controller)
@@ -69,18 +64,11 @@ public class controllerCollisionManager : MonoBehaviour {
     {
         if(!objInCollider)
         {
-            if (col.gameObject.tag == "svrInteractableObject" && !objInCollider)
+            if (col.gameObject.tag == "svrInteractableObject")
             {
                 objInCollider = true;
                 lastTouchedInteractableObject = col.gameObject;
                 isTouchingInteractableObject = true;
-            }
-
-            if (col.gameObject.tag == "svrActivatableObject")
-            {
-                objInCollider = true;
-                isTouchingActivatableObject = true;
-                lastTouchedInteractableObject = col.gameObject;
             }
         }
     }
@@ -91,9 +79,6 @@ public class controllerCollisionManager : MonoBehaviour {
         {
             objInCollider = false;
             if(isTouchingInteractableObject) isTouchingInteractableObject = false;
-            if(isTouchingActivatableObject) isTouchingActivatableObject = false;
         }
-
-        if()
     }
 }
