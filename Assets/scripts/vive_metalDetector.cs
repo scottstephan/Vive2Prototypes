@@ -3,19 +3,24 @@ using System.Collections;
 
 public class vive_metalDetector : MonoBehaviour {
     private Color originColor;
+	private Color destColor; 
     private Rigidbody thisRigidbody;
     private controllerListener.svrController activatingController;
 	public bool isOn = false;
 	public TextMesh debugMesh;
+	public TextMesh winMesh;
 
 	public GameObject treasure;
 	private float treasureDistance;
 
     void Start()
     {
+		winMesh.text = "";
+
         thisRigidbody = gameObject.GetComponent<Rigidbody>();
         originColor = gameObject.GetComponent<MeshRenderer>().material.color;
-            //Instance the mat to avoid overwriting the original material. 
+		destColor = Color.red;
+
         Material cloneMat = gameObject.GetComponent<MeshRenderer>().material;
         gameObject.GetComponent<MeshRenderer>().material = cloneMat; 
     }
@@ -32,7 +37,13 @@ public class vive_metalDetector : MonoBehaviour {
 		Vector2 treasurePos = new Vector2(treasure.transform.position.x, treasure.transform.position.z);
 
 		treasureDistance = Vector2.Distance (mdPos, treasurePos);
-		debugMesh.text = "TD: " + treasureDistance;
+		Color tempColor = Color.Lerp (destColor, originColor, treasureDistance); //Reverse so that as we get closer to 0, we get more red. 
+		gameObject.GetComponent<MeshRenderer> ().material.color = tempColor;
+
+		float hapticAmt = 1000 - (500 * treasureDistance);
+
+		debugMesh.text = "TD: " + treasureDistance + "hA: " + hapticAmt;
+		if (treasureDistance < .025) winMesh.text = "YOU FOUND TREASURE. so happy 4 u, baby bro. <3 mom & dad :)";
 	}
 
     public void svrControllerDown(controllerListener.svrController controllerThatBroadcasted)
