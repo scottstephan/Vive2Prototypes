@@ -1,12 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\listenForSVCCollision.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\Users\User\Documents\GnG\Assets\Scripts\MotionController.cs">
     <Files>
-      <File FileName="Assets\scripts\carryableObject.cs" Line="100" Column="1" />
-      <File FileName="Assets\scripts\controllerListener.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\carryableObject.cs" Line="100" Column="1" />
-      <File FileName="Assets\scripts\controllerCollisionManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\listenForSVCCollision.cs" Line="24" Column="137" />
+      <File FileName="..\..\Users\User\Documents\GnG\Assets\Scripts\MotionController.cs" Line="80" Column="96" />
+      <File FileName="..\..\Users\User\Documents\GnG\Assets\Scripts\controllerCollisionManager.cs" Line="19" Column="44" />
+      <File FileName="..\..\Users\User\Documents\GnG\Assets\Scripts\controllerListener.cs" Line="94" Column="30" />
+      <File FileName="Assets\scripts\controllerCollisionManager.cs" Line="48" Column="52" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -28,8 +28,10 @@ public class controllerCollisionManager : MonoBehaviour {
             {
                 Debug.Log(thisController.index + "is pressing down");
                 isUsingInteractableObject = true; //THIS PRESUMES A "HOLD" OPERATION NOT A "USE" OPERATION. WILL NEED TO SORT BASED ON OBJECT TYPE. This happens in ad-hoc way in the object code.
+				Debug.Log("svrController is touching: " + lastTouchedInteractableObject.name + "and is broadcasting down");
+
                 lastTouchedInteractableObject.BroadcastMessage("svrControllerDown",thisController);
-                if (oldPos == Vector3.zero) oldPos = thisController.controllerObject.transform.position; //Involuntary for now
+                if (oldPos == Vector3.zero) oldPos = thisController.controllerObject.transform.position; //Involuntary for now. for cVel
             }
         }
 
@@ -43,7 +45,7 @@ public class controllerCollisionManager : MonoBehaviour {
 
                 isUsingInteractableObject = false;
                 oldPos = Vector3.zero;
-                lastTouchedInteractableObject.BroadcastMessage("svrControllerUp",thisController);
+                lastTouchedInteractableObject.BroadcastMessage("svrControllerUp",thisController); //Should limit scope of broadcast
             }
         }
 	}
@@ -66,6 +68,7 @@ public class controllerCollisionManager : MonoBehaviour {
         {
             if (col.gameObject.tag == "svrInteractableObject")
             {
+				Debug.Log("Controller has entered collider of" + col.gameObject.name);
                 objInCollider = true;
                 lastTouchedInteractableObject = col.gameObject;
                 isTouchingInteractableObject = true;
@@ -77,8 +80,11 @@ public class controllerCollisionManager : MonoBehaviour {
     {
         if (lastTouchedInteractableObject != null && col.gameObject.name == lastTouchedInteractableObject.name) 
         {
+			Debug.Log("Controller has exited collider of" + col.gameObject.name);
             objInCollider = false;
-            if(isTouchingInteractableObject) isTouchingInteractableObject = false;
+			isUsingInteractableObject = false;
+			lastTouchedInteractableObject = null;
+            isTouchingInteractableObject = false;
         }
     }
 }

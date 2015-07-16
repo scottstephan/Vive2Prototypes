@@ -4,7 +4,7 @@ using System.Collections;
 public class svr_shotgunTrigger : MonoBehaviour {
 	public GameObject bullet;
 	public GameObject muzzlePt;
-
+    public float bulletForce = 1000f;
 	// Use this for initialization
 	void Start () {
 	
@@ -24,6 +24,6 @@ public class svr_shotgunTrigger : MonoBehaviour {
 	private void fireBullet()
 	{
 		GameObject tempBullet = Instantiate (bullet,muzzlePt.transform.position,new Quaternion(0,0,0,0)) as GameObject;
-		tempBullet.GetComponent<Rigidbody> ().velocity = gameObject.transform.parent.forward * 2;
+		tempBullet.GetComponent<Rigidbody> ().AddForce(muzzlePt.transform.forward * bulletForce);
 	}
 }

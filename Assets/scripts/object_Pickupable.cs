@@ -17,10 +17,14 @@ public class object_Pickupable: MonoBehaviour {
         if (!gameObject.GetComponent<Rigidbody>()) gameObject.AddComponent<Rigidbody>();
         gameObject.tag = "svrInteractableObject";
         thisRigidbody = gameObject.GetComponent<Rigidbody>();
-        originColor = gameObject.GetComponent<MeshRenderer>().material.color;
+
+        if (gameObject.GetComponent<MeshRenderer>())
+        {
+            originColor = gameObject.GetComponent<MeshRenderer>().material.color;
             //Instance the mat to avoid overwriting the original material. 
-        Material cloneMat = gameObject.GetComponent<MeshRenderer>().material;
-        gameObject.GetComponent<MeshRenderer>().material = cloneMat; 
+            Material cloneMat = gameObject.GetComponent<MeshRenderer>().material;
+            gameObject.GetComponent<MeshRenderer>().material = cloneMat;
+        }
     }
 
     public void svrControllerDown(controllerListener.svrController controllerThatBroadcasted)
@@ -33,35 +37,44 @@ public class object_Pickupable: MonoBehaviour {
     public void svrControllerUp(controllerListener.svrController controllerThatBroadcasted)
     {
         Debug.Log(gameObject.name + "has heard the svr Up Broadcast");
-        objectIsDropped();
-        activatingController = null;
-    }
+        if (controllerThatBroadcasted.index == activatingController.index) //to avoid mis-fires from other controllers. Sometimes throws a null, which could also be a good indicator?j58
+        {
+            objectIsDropped();
+            activatingController = null;
+        }
+     }
 
     private void objectIsPickedUp()
     {
-        isHeld = true;
-        gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+        if (!isHeld)
+        {
+            isHeld = true;
+            if (gameObject.GetComponent<MeshRenderer>()) gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
 
-        thisRigidbody.isKinematic = true;
-        gameObject.transform.parent = activatingController.controllerObject.transform;
+            thisRigidbody.isKinematic = true;
+            gameObject.transform.parent = activatingController.controllerObject.transform;
 
-        if (hasCustomBehaviorOnHold) gameObject.BroadcastMessage("objectIsBeingHeld");
+            if (hasCustomBehaviorOnHold) gameObject.BroadcastMessage("objectIsBeingHeld");
+        }
     }
 
     private void objectIsDropped()
     {
-        isHeld = false;
-        gameObject.transform.parent = null;
+        if (isHeld)
+        {
+            isHeld = false;
+            gameObject.transform.parent = null;
 
-        Vector3 controllerVelocity = activatingController.curVelocity; //This occassionally throws an error and hangs the object. Why ??
-        Debug.Log("At button up, svrControllers velocity is: " + controllerVelocity);
+            Vector3 controllerVelocity = activatingController.curVelocity; //This occassionally throws an error and hangs the object. Why ??
+            Debug.Log("At button up, svrControllers velocity is: " + controllerVelocity);
 
-        thisRigidbody.isKinematic = false;
-        thisRigidbody.velocity = controllerVelocity; 
+            thisRigidbody.isKinematic = false;
+            thisRigidbody.velocity = controllerVelocity;
 
-        gameObject.GetComponent<MeshRenderer>().material.color = originColor;
-        activatingController = null;
+            if (gameObject.GetComponent<MeshRenderer>()) gameObject.GetComponent<MeshRenderer>().material.color = originColor;
+            activatingController = null;
 
-        if (hasCustomeBehaviorOnDrop) gameObject.BroadcastMessage("objectIsReleased");
+            if (hasCustomeBehaviorOnDrop) gameObject.BroadcastMessage("objectIsReleased");
+        }
     }
 }
