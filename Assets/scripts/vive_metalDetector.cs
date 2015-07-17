@@ -6,7 +6,7 @@ public class vive_metalDetector : MonoBehaviour {
 	private Color destColor; 
     private Rigidbody thisRigidbody;
     private controllerListener.svrController activatingController;
-    public float lerpMod = .25  f;
+    public float lerpMod = .25f;
 	public bool isOn = false;
 	public TextMesh debugMesh;
 	public TextMesh winMesh;

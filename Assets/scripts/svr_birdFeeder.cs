@@ -27,7 +27,7 @@ public class svr_birdFeeder : MonoBehaviour {
     {
         Debug.Log(gameObject.name + "is being released");
         StartCoroutine("foodEventDelay");
-        foodEmitter.Play();
+    //    foodEmitter.Play();
         activatingController = null;
     }
 
