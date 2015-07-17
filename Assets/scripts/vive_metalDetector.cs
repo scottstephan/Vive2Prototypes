@@ -6,6 +6,7 @@ public class vive_metalDetector : MonoBehaviour {
 	private Color destColor; 
     private Rigidbody thisRigidbody;
     private controllerListener.svrController activatingController;
+    public float lerpMod = .25  f;
 	public bool isOn = false;
 	public TextMesh debugMesh;
 	public TextMesh winMesh;
@@ -37,13 +38,15 @@ public class vive_metalDetector : MonoBehaviour {
 		Vector2 treasurePos = new Vector2(treasure.transform.position.x, treasure.transform.position.z);
 
 		treasureDistance = Vector2.Distance (mdPos, treasurePos);
-		Color tempColor = Color.Lerp (destColor, originColor, treasureDistance); //Reverse so that as we get closer to 0, we get more red. 
+        float lerpAmt = treasureDistance - lerpMod;
+		Color tempColor = Color.Lerp (destColor, originColor, lerpAmt); //Reverse so that as we get closer to 0, we get more red. 
 		gameObject.GetComponent<MeshRenderer> ().material.color = tempColor;
 
-		float hapticAmt = 1000 - (500 * treasureDistance);
+		//float hapticLength = 1000 - (500 * treasureDistance);
 
-		debugMesh.text = "TD: " + treasureDistance + "hA: " + hapticAmt;
-		if (treasureDistance < .025) winMesh.text = "YOU FOUND TREASURE. so happy 4 u, baby bro. <3 mom & dad :)";
+        if (treasureDistance < .5) SteamVR_Controller.Input(activatingController.index).TriggerHapticPulse(1000);
+        debugMesh.text = "TD: " + treasureDistance;
+		if (treasureDistance < .3) winMesh.text = "YOU FOUND TREASURE. so happy 4 u, baby bro. <3 mom & dad :)";
 	}
 
     public void svrControllerDown(controllerListener.svrController controllerThatBroadcasted)
@@ -63,8 +66,6 @@ public class vive_metalDetector : MonoBehaviour {
 
     private void objectIsPickedUp()
     {
-     //   gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-
         thisRigidbody.isKinematic = true;
         gameObject.transform.parent = activatingController.controllerObject.transform;
     }
@@ -79,7 +80,6 @@ public class vive_metalDetector : MonoBehaviour {
         thisRigidbody.isKinematic = false;
         thisRigidbody.velocity = controllerVelocity; 
 
-    //    gameObject.GetComponent<MeshRenderer>().material.color = originColor;
         activatingController = null;
     }
 
