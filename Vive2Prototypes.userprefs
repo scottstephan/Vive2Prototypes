@@ -1,8 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\theblu\unity\Assets\Scenes\vive_metalDetector.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\svrInteractableBase.cs">
     <Files>
-      <File FileName="..\theblu\unity\Assets\Scenes\vive_metalDetector.cs" Line="60" Column="55" />
+      <File FileName="Assets\scripts\passiveCreatureAI.cs" Line="78" Column="126" />
+      <File FileName="Assets\scripts\passiveCreatureBase.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\svrInteractableBase.cs" Line="41" Column="66" />
+      <File FileName="Assets\scripts\testSVRInputListener.cs" Line="25" Column="37" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

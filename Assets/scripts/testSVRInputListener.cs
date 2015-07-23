@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class testSVRInputListener : MonoBehaviour {
+//This is the most basic version of an SVR interactable object
+public class testSVRInputListener : svrInteractableBase {
     private Color originColor;
     private Rigidbody thisRigidbody;
-    private controllerListener.svrController activatingController;
+   
     void Start()
     {
         thisRigidbody = gameObject.GetComponent<Rigidbody>();
@@ -14,39 +14,20 @@ public class testSVRInputListener : MonoBehaviour {
         gameObject.GetComponent<MeshRenderer>().material = cloneMat; 
     }
 
-    public void svrControllerDown(controllerListener.svrController controllerThatBroadcasted)
+	public override void controllerInputTriggerDown()
     {
-        Debug.Log(gameObject.name + "has heard the svrDown Broadcast");
-        activatingController = controllerThatBroadcasted;
-        objectIsPickedUp(); //Could be toggled on flag
+		base.controllerInputTriggerDown ();
+		Debug.Log(gameObject.name + "has heard the svrDown Broadcast");
+
+		objectIsPickedUp(); 
     }
 
-    public void svrControllerUp(controllerListener.svrController controllerThatBroadcasted)
+	public override void controllerInputTriggerUp()
     {
-        Debug.Log(gameObject.name + "has heard the svr Up Broadcast");
+		base.controllerInputTriggerUp ();
+		Debug.Log(gameObject.name + "has heard the svUp Broadcast");
+
         objectIsDropped();
-        activatingController = null;
     }
 
-    private void objectIsPickedUp()
-    {
-        gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-
-        thisRigidbody.isKinematic = true;
-        gameObject.transform.parent = activatingController.controllerObject.transform;
-    }
-
-    private void objectIsDropped()
-    {
-        gameObject.transform.parent = null;
-
-        Vector3 controllerVelocity = activatingController.curVelocity;
-        Debug.Log("At button up, svrControllers velocity is: " + controllerVelocity);
-
-        thisRigidbody.isKinematic = false;
-        thisRigidbody.velocity = controllerVelocity; 
-
-        gameObject.GetComponent<MeshRenderer>().material.color = originColor;
-        activatingController = null;
-    }
 }
