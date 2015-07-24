@@ -21,12 +21,15 @@ public class passiveCreatureAI : passiveCreatureBase {
 
 	private Rigidbody thisRigidbody;
 	public bool isWalkingToNode = false;
+	public bool isHeldInHand = false;
+	public bool canMove = true;
+
 	// Use this for initialization
 	public override void Start () {
 		base.Start ();
 
 		thisRigidbody = gameObject.GetComponent<Rigidbody>();
-		groundedY = gameObject.transform.position.y; //gotta find a better way to do this. Could just calc x/z and comp. into a new V3. Could lock y in transit? Could raycast at ground, but that seems like a waste
+		//groundedY = gameObject.transform.position.y; //gotta find a better way to do this. Could just calc x/z and comp. into a new V3. Could lock y in transit? Could raycast at ground, but that seems like a waste
 
 		curTransform = walkToNodes [Random.Range (0, walkToNodes.Count)];
 
@@ -38,25 +41,29 @@ public class passiveCreatureAI : passiveCreatureBase {
 	
 	// Update is called once per frame
 	void Update (){ 
-		if (!isWalkingToNode) 
+		if (!isWalkingToNode && canMove) 
 		{
-			curTime += Time.deltaTime;
-			frameCounter++;
+			checkForUrgeToMove();
+		}
+	}
 
-			if (curTime > minWaitTime && curTime < maxWaitTime && frameCounter % freqToPollCreature == 0) 
-			{
-				float randomRoll = Random.Range (0, maxWaitTime - curTime); 
-//				Debug.Log("Random roll is: " + randomRoll);
-				if (randomRoll < 1) {
-					isWalkingToNode = true;
-					findNode ();
-					curTime = 0;
-				}
-			} else if (curTime > maxWaitTime) {
+	private void checkForUrgeToMove(){
+		curTime += Time.deltaTime;
+		frameCounter++;
+		
+		if (curTime > minWaitTime && curTime < maxWaitTime && frameCounter % freqToPollCreature == 0) 
+		{
+			float randomRoll = Random.Range (0, maxWaitTime - curTime); 
+			//				Debug.Log("Random roll is: " + randomRoll);
+			if (randomRoll < 1) {
 				isWalkingToNode = true;
 				findNode ();
 				curTime = 0;
 			}
+		} else if (curTime > maxWaitTime) {
+			isWalkingToNode = true;
+			findNode ();
+			curTime = 0;
 		}
 	}
 
@@ -66,7 +73,8 @@ public class passiveCreatureAI : passiveCreatureBase {
 		destRot = Quaternion.LookRotation (gameObject.transform.position - destTransform.position); //will prob want to lerp this over time
 		isWalkingToNode = true;
 
-		StartCoroutine ("rotateToNode");
+		//StartCoroutine ("rotateToNode");
+		StartCoroutine ("walkToNode");
 	}
 
 	private Transform returnNewNode(){
@@ -104,12 +112,26 @@ public class passiveCreatureAI : passiveCreatureBase {
 			newPos.y = groundedY;
 
 			gameObject.transform.position = newPos; //This could cause some hell vs. rigidbody.MovePositon, but at 90fps, should be okay?
+			thisRigidbody.velocity = Vector3.zero;
 			yield return null;
 		}
 		curTransform = destTransform;
 
 		Debug.Log ("Done walking");
 		isWalkingToNode = false;
+	}
+
+	public void stopAI(){
+		Debug.Log ("Stopping AI");
+		canMove = false;
+		StopCoroutine ("walkToNode");
+		isWalkingToNode = false;
+	}
+
+	public void startAI(){
+		canMove = true;
+		curTransform = gameObject.transform; //This MIGHT add this v3 to the list, but never add back the v3 of the curTransform node the crab was moving to. Kinda fun, but unpreictable
+		curTime = 0; //reset move counter. Maybe give this an offset?
 	}
 	
 }

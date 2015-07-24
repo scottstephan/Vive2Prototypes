@@ -9,6 +9,7 @@ public class svrInteractableBase : MonoBehaviour {
 
 	// Use this for initialization
 	public virtual void Start () {
+		gameObject.tag = "svrInteractableObject";
 		thisRigidbody = gameObject.GetComponent<Rigidbody>();
 		originColor = gameObject.GetComponent<MeshRenderer>().material.color;
 		//Instance the mat to avoid overwriting the original material. 
