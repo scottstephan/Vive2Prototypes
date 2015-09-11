@@ -22,30 +22,11 @@ public class SteamVR_Overlay : MonoBehaviour
 	public Vector4 uvOffset = new Vector4(0, 0, 1, 1);
 	public Vector2 mouseScale = new Vector2(1, 1);
 
-	public VROverlayVisibility visibility = VROverlayVisibility.Manual;
 	public VROverlayInputMethod inputMethod = VROverlayInputMethod.None;
 
 	static public SteamVR_Overlay instance { get; private set; }
 
-	static public bool systemOverlayVisible
-	{
-		get
-		{
-			var vr = SteamVR.instance;
-			return vr.overlay.IsSystemOverlayVisible();
-		}
-	}
-
-	public bool activeSystemOverlay
-	{
-		get
-		{
-			var vr = SteamVR.instance;
-			return vr.overlay.IsActiveSystemOverlay(handle);
-		}
-	}
-
-	private string key { get { return GetHashCode().ToString(); } }
+	private string key { get { return "unity:" + Application.companyName + "." + Application.productName; } }
 	private ulong handle = OpenVR.k_ulOverlayHandleInvalid;
 
 	void OnEnable()
@@ -90,7 +71,7 @@ public class SteamVR_Overlay : MonoBehaviour
 					return;
 			}
 
-			vr.overlay.SetOverlayTexture(handle, texture.GetNativeTexturePtr());
+			vr.overlay.SetOverlayTexture(handle, vr.graphicsAPI, texture.GetNativeTexturePtr());
 			vr.overlay.SetOverlayAlpha(handle, alpha);
 			vr.overlay.SetOverlayGamma(handle, gamma);
 			vr.overlay.SetOverlayWidthInMeters(handle, scale);
@@ -120,7 +101,6 @@ public class SteamVR_Overlay : MonoBehaviour
 				vr.overlay.SetOverlayTransformAbsolute(handle, SteamVR_Render.instance.trackingSpace, ref t);
 			}
 
-			vr.overlay.SetOverlayVisibility(handle, visibility);
 			vr.overlay.SetOverlayInputMethod(handle, inputMethod);
 
 			if (curved || antialias)

@@ -15,6 +15,15 @@ public class SteamVR_RenderModel : MonoBehaviour
 	public SteamVR_TrackedObject.EIndex index;
 	public string modelOverride;
 
+	// If someone knows how to keep these from getting cleaned up every time
+	// you exit play mode, let me know.  I've tried marking the RenderModel
+	// class below as [System.Serializable] and switching to normal public
+	// variables for mesh and material to get them to serialize properly,
+	// as well as tried marking the mesh and material objects as
+	// DontUnloadUnusedAsset, but Unity was still unloading them.
+	// The hashtable is preserving its entries, but the mesh and material
+	// variables are going null.
+
 	public class RenderModel
 	{
 		public RenderModel(Mesh mesh, Texture2D texture)
@@ -65,16 +74,18 @@ public class SteamVR_RenderModel : MonoBehaviour
 
 	private void SetModel(string renderModelName)
 	{
-		if (!models.Contains(renderModelName))
+		var model = models[renderModelName] as RenderModel;
+		if (model == null || model.mesh == null)
 		{
 			Debug.Log("Loading render model " + renderModelName);
 
-			var result = LoadRenderModel(renderModelName);
-			if (result != null)
-				models[renderModelName] = result;
+			model = LoadRenderModel(renderModelName);
+			if (model == null)
+				return;
+
+			models[renderModelName] = model;
 		}
 
-		var model = models[renderModelName] as RenderModel;
 		GetComponent<MeshFilter>().mesh = model.mesh;
 		GetComponent<MeshRenderer>().sharedMaterial = model.material;
 	}
@@ -142,6 +153,9 @@ public class SteamVR_RenderModel : MonoBehaviour
 		mesh.uv = uv;
 		mesh.triangles = triangles;
 
+		mesh.Optimize();
+		//mesh.hideFlags = HideFlags.DontUnloadUnusedAsset;
+
 		var textureMapData = new byte[renderModel.diffuseTexture.unWidth * renderModel.diffuseTexture.unHeight * 4]; // RGBA
 		Marshal.Copy(renderModel.diffuseTexture.rubTextureMapData, textureMapData, 0, textureMapData.Length);
 
@@ -162,6 +176,8 @@ public class SteamVR_RenderModel : MonoBehaviour
 		var texture = new Texture2D(renderModel.diffuseTexture.unWidth, renderModel.diffuseTexture.unHeight, TextureFormat.ARGB32, true);
 		texture.SetPixels32(colors);
 		texture.Apply();
+
+		//texture.hideFlags = HideFlags.DontUnloadUnusedAsset;
 
 		renderModels.FreeRenderModel(ref renderModel);
 
@@ -192,5 +208,12 @@ public class SteamVR_RenderModel : MonoBehaviour
 			SetModel(modelOverride);
 	}
 #endif
+
+	public void SetDeviceIndex(int index)
+	{
+		this.index = (SteamVR_TrackedObject.EIndex)index;
+		modelOverride = "";
+		UpdateModel();
+	}
 }
 

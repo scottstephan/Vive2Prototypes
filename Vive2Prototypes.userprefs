@@ -1,10 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\theblu\unity\Assets\Scenes\passive_Crab.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\theblu\unity\Assets\Vive2_PrototypesAndDemos\navAgentTests\navAgent_crab.cs">
     <Files>
-      <File FileName="..\theblu\unity\Assets\Scenes\controllerListener_theBlu.cs" Line="1" Column="1" />
-      <File FileName="..\theblu\unity\Assets\Scenes\svrInteractableBase.cs" Line="71" Column="1" />
-      <File FileName="..\theblu\unity\Assets\Scenes\passive_Crab.cs" Line="5" Column="27" />
+      <File FileName="..\theblu\unity\Assets\Vive2_PrototypesAndDemos\navAgentTests\navAgent_crab.cs" Line="27" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

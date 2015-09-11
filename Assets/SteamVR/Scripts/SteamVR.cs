@@ -110,6 +110,7 @@ public class SteamVR : System.IDisposable
 	public Vector2 tanHalfFov { get; private set; }
 	public VRTextureBounds_t[] textureBounds { get; private set; }
 	public SteamVR_Utils.RigidTransform[] eyes { get; private set; }
+	public GraphicsAPIConvention graphicsAPI;
 
 	// hmd properties
 	public string hmd_TrackingSystemName { get { return GetStringProperty(TrackedDeviceProperty.Prop_TrackingSystemName_String); } }
@@ -229,20 +230,6 @@ public class SteamVR : System.IDisposable
 		compositor = new CVRCompositor(pCompositor);
 		overlay = new CVROverlay(pOverlay);
 
-		var device = new UnityGraphicsDevice();
-		GetUnityGraphicsDevice(ref device);
-		switch (device.type)
-		{
-			case GfxDeviceRenderer.kGfxRendererD3D11:
-				compositor.SetGraphicsDevice(Compositor_DeviceType.D3D11, device.ptr);
-				break;
-			case GfxDeviceRenderer.kGfxRendererOpenGL:
-				compositor.SetGraphicsDevice(Compositor_DeviceType.OpenGL, device.ptr);
-				break;
-			default:
-				throw new System.Exception("Unsupported device type.");
-		}
-
 		var capacity = compositor.GetLastError(null, 0);
 		if (capacity > 1)
 		{
@@ -251,12 +238,7 @@ public class SteamVR : System.IDisposable
 			Debug.Log("Compositor - " + result);
 		}
 
-		// Register for a callback if our graphics device goes away, so we can properly clean up.
-		var resetDelegate = new UnityResetDelegate(SteamVR.SafeDispose);
-		callbackHandle = GCHandle.Alloc(resetDelegate);
-		SetUnityResetCallback(Marshal.GetFunctionPointerForDelegate(resetDelegate));
-
-		// Hook up the render thread present event just in case we wind up needing to use this.
+		// Hook up the render thread event.
 		var error = HmdError.None;
 		SetUnityRenderCallback(OpenVR.GetGenericInterface(IVRHmdDistortPresent_Version, ref error));
 
@@ -299,6 +281,11 @@ public class SteamVR : System.IDisposable
 			new SteamVR_Utils.RigidTransform(hmd.GetEyeToHeadTransform(Hmd_Eye.Eye_Left)),
 			new SteamVR_Utils.RigidTransform(hmd.GetEyeToHeadTransform(Hmd_Eye.Eye_Right)) };
 
+		if (SystemInfo.graphicsDeviceVersion.StartsWith("OpenGL"))
+			graphicsAPI = GraphicsAPIConvention.API_OpenGL;
+		else
+			graphicsAPI = GraphicsAPIConvention.API_DirectX;
+
 		SteamVR_Utils.Event.Listen("initializing", OnInitializing);
 		SteamVR_Utils.Event.Listen("calibrating", OnCalibrating);
 		SteamVR_Utils.Event.Listen("out_of_range", OnOutOfRange);
@@ -325,13 +312,7 @@ public class SteamVR : System.IDisposable
 		SteamVR_Utils.Event.Remove("device_connected", OnDeviceConnected);
 		SteamVR_Utils.Event.Remove("new_poses", OnNewPoses);
 
-		if (callbackHandle.IsAllocated)
-		{
-			SetUnityRenderCallback(System.IntPtr.Zero);
-			SetUnityResetCallback(System.IntPtr.Zero);
-			callbackHandle.Free();
-		}
-
+		SetUnityRenderCallback(System.IntPtr.Zero);
 		ShutdownSystems();
 		_instance = null;
 	}
@@ -348,40 +329,7 @@ public class SteamVR : System.IDisposable
 			_instance.Dispose();
 	}
 
-
-	GCHandle callbackHandle;
-
 	#region Unity Native Rendering Hooks
-
-	public enum GfxDeviceRenderer
-	{
-		kGfxRendererOpenGL = 0,
-		kGfxRendererD3D9,
-		kGfxRendererD3D11,
-		kGfxRendererGCM,
-		kGfxRendererNull,
-		kGfxRendererHollywood,
-		kGfxRendererXenon,
-		kGfxRendererOpenGLES,
-		kGfxRendererOpenGLES20Mobile,
-		kGfxRendererMolehill,
-		kGfxRendererOpenGLES20Desktop,
-		kGfxRendererCount,
-	}
-
-	[StructLayout(LayoutKind.Sequential)]
-	public struct UnityGraphicsDevice
-	{
-		public System.IntPtr ptr;
-		public GfxDeviceRenderer type;
-	}
-
-	[DllImport("openvr_api")]
-	public static extern void GetUnityGraphicsDevice(ref UnityGraphicsDevice outDevice);
-
-	public delegate void UnityResetDelegate();
-	[DllImport("openvr_api", CallingConvention = CallingConvention.StdCall)]
-	public static extern void SetUnityResetCallback(System.IntPtr fn);
 
 	public delegate void UnityRenderDelegate(int eventID);
 	[DllImport("openvr_api", CallingConvention = CallingConvention.StdCall)]

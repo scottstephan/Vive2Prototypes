@@ -14,6 +14,8 @@ public class SteamVR_Render : MonoBehaviour
 	public string helpText = "You may now put on your headset.";
 	public GUIStyle helpStyle;
 
+	public bool pauseGameWhenDashboardIsVisible = true;
+
 	public LayerMask leftMask, rightMask;
 
 	SteamVR_CameraMask cameraMask;
@@ -153,6 +155,13 @@ public class SteamVR_Render : MonoBehaviour
 			RenderEye(vr, Hmd_Eye.Eye_Left, leftMask);
 			RenderEye(vr, Hmd_Eye.Eye_Right, rightMask);
 
+			// Move cameras back to head position so they can be tracked reliably
+			foreach (var c in cameras)
+			{
+				c.transform.localPosition = Vector3.zero;
+				c.transform.localRotation = Quaternion.identity;
+			}
+
 			if (cameraMask != null)
 				cameraMask.Clear();
 
@@ -185,14 +194,62 @@ public class SteamVR_Render : MonoBehaviour
 		}
 	}
 
+	float sceneResolutionScale = 1.0f, timeScale = 1.0f;
+
+	private void OnInputFocus(params object[] args)
+	{
+		bool hasFocus = (bool)args[0];
+		if (hasFocus)
+		{
+			if (pauseGameWhenDashboardIsVisible)
+			{
+				Time.timeScale = timeScale;
+			}
+	
+			SteamVR_Camera.sceneResolutionScale = sceneResolutionScale;
+		}
+		else
+		{
+			if (pauseGameWhenDashboardIsVisible)
+			{
+				timeScale = Time.timeScale;
+				Time.timeScale = 0.0f;
+			}
+
+			sceneResolutionScale = SteamVR_Camera.sceneResolutionScale;
+			SteamVR_Camera.sceneResolutionScale = 0.5f;
+		}
+	}
+
+	void OnQuit(params object[] args)
+	{
+#if UNITY_EDITOR
+		foreach (System.Reflection.Assembly a in System.AppDomain.CurrentDomain.GetAssemblies())
+		{
+			var t = a.GetType("UnityEditor.EditorApplication");
+			if (t != null)
+			{
+				t.GetProperty("isPlaying").SetValue(null, false, null);
+				break;
+			}
+		}
+#else
+		Application.Quit();
+#endif
+	}
+
 	void OnEnable()
 	{
 		StartCoroutine("RenderLoop");
+		SteamVR_Utils.Event.Listen("input_focus", OnInputFocus);
+		SteamVR_Utils.Event.Listen("Quit", OnQuit);
 	}
 
 	void OnDisable()
 	{
 		StopAllCoroutines();
+		SteamVR_Utils.Event.Remove("input_focus", OnInputFocus);
+		SteamVR_Utils.Event.Remove("Quit", OnQuit);
 	}
 
 	void Awake()
@@ -213,11 +270,36 @@ public class SteamVR_Render : MonoBehaviour
 		// Force controller update in case no one else called this frame to ensure prevState gets updated.
 		SteamVR_Controller.Update();
 
+		// Dispatch any OpenVR events.
+		var vr = SteamVR.instance;
+		var vrEvent = new VREvent_t();
+		for (int i = 0; i < 64; i++)
+		{
+			if (!vr.hmd.PollNextEvent(ref vrEvent))
+				break;
+
+			switch ((EVREventType)vrEvent.eventType)
+			{
+				case EVREventType.VREvent_InputFocusCaptured: // another app has taken focus (likely dashboard)
+					SteamVR_Utils.Event.Send("input_focus", false);
+					break;
+				case EVREventType.VREvent_InputFocusReleased: // that app has released input focus
+					SteamVR_Utils.Event.Send("input_focus", true);
+					break;
+				default:
+					var name = System.Enum.GetName(typeof(EVREventType), vrEvent.eventType);
+					if (name != null)
+						SteamVR_Utils.Event.Send(name.Substring(8) /*strip VREvent_*/, vrEvent);
+					break;
+			}
+		}
+
 		// Ensure various settings to minimize latency.
 		Application.targetFrameRate = -1;
 		Application.runInBackground = true; // don't require companion window focus
-		QualitySettings.maxQueuedFrames = 0;
+		QualitySettings.maxQueuedFrames = -1;
 		QualitySettings.vSyncCount = 0; // this applies to the companion window
+		Time.fixedDeltaTime = 1.0f / vr.hmd_DisplayFrequency;
 	}
 
 	void OnGUI()

@@ -10,7 +10,7 @@
 	ENDCG
 
 	SubShader {
-		Tags { "Queue" = "Overlay" }
+		Tags { "Queue" = "Background" }
 		Pass {
 			ZTest Always Cull Off ZWrite On
 			Fog { Mode Off }
