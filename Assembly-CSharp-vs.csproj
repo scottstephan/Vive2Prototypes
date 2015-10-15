@@ -99,6 +99,10 @@
      <Compile Include="Assets\scripts\controllerCollisionManager.cs" />
      <Compile Include="Assets\scripts\controllerIndexKeeper.cs" />
      <Compile Include="Assets\scripts\controllerListener.cs" />
+     <Compile Include="Assets\scripts\coverFlowtest\line\lineNav.cs" />
+     <Compile Include="Assets\scripts\coverFlowtest\line\navLine_ObjBehavior.cs" />
+     <Compile Include="Assets\scripts\coverFlowtest\rotateToLookAt.cs" />
+     <Compile Include="Assets\scripts\coverFlowtest\rotateableObjectsCreator.cs" />
      <Compile Include="Assets\scripts\crabYard.cs" />
      <Compile Include="Assets\scripts\listenForSVCCollision.cs" />
      <Compile Include="Assets\scripts\metalDetector.cs" />

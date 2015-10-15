@@ -1,8 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\theblu\unity\Assets\Vive2_PrototypesAndDemos\navAgentTests\navAgent_crab.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\coverFlowtest\rotateToLookAt.cs">
     <Files>
-      <File FileName="..\theblu\unity\Assets\Vive2_PrototypesAndDemos\navAgentTests\navAgent_crab.cs" Line="27" Column="16" />
+      <File FileName="Assets\Editor\generateRotCubes.cs" Line="10" Column="49" />
+      <File FileName="Assets\scripts\coverFlowtest\rotateableObjectsCreator.cs" Line="7" Column="39" />
+      <File FileName="Assets\scripts\coverFlowtest\rotateToLookAt.cs" Line="23" Column="3" />
+      <File FileName="Assets\scripts\coverFlowtest\line\lineNav.cs" Line="5" Column="33" />
+      <File FileName="Assets\scripts\coverFlowtest\line\navLine_ObjBehavior.cs" Line="29" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

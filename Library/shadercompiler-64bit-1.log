@@ -1,9 +1,19 @@
 Base path: C:/Program Files/Unity511f/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-5484
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-892
 Cmd: getPlatforms
-Cmd: preprocess
-  insize=441 outsize=260 ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=990 outsize=1404 kw=FOG_EXP2 ok=1
+  api=4 type=0 insize=7523 outsize=5109 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=990 outsize=973 kw=FOG_EXP2 ok=1
+  api=4 type=1 insize=7523 outsize=3784 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=6155 outsize=3825 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=6155 outsize=6726 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=4264 outsize=2403 kw=DIRECTIONAL SHADOWS_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=4264 outsize=4638 kw=DIRECTIONAL SHADOWS_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=634781 outsize=15346 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF EFFECT_BUMP EFFECT_HUE_VARIATION GEOM_TYPE_BRANCH_DETAIL ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=634781 outsize=3630 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF EFFECT_BUMP EFFECT_HUE_VARIATION GEOM_TYPE_BRANCH_DETAIL ok=1
