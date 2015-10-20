@@ -17,6 +17,7 @@ public class controllerListener : MonoBehaviour {
 	public static List<svrController> svrControllers = new List<svrController>();
 	
 	public bool addCollidersAndTagsToControllers = false; //If you're planning on using controllers as collision volumes, check this. It'll auto-add a box collider and tag the controller.
+	public bool addRaycastSetup = false;
 	// Use this for initialization
 	
 	void Start () {
@@ -72,14 +73,22 @@ public class controllerListener : MonoBehaviour {
 		else if(!controller2.isSet)
 		{
 			controller2.isSet = true;
-			controller2 .controllerObject= Controller;
+			controller2 .controllerObject = Controller;
 			controller2.index = index;
 			svrControllers.Add(controller2);
 			tempController = controller2;
+
 			readControllerList();
 		}
 		
-		if (addCollidersAndTagsToControllers) addCollisionSetupToController(tempController);
+		if (addCollidersAndTagsToControllers)
+			addCollisionSetupToController (tempController);
+		if (addRaycastSetup)
+			setupRaycast (tempController);
+	}
+
+	private void setupRaycast(svrController controller){
+		controller.controllerObject.AddComponent<rayCastFromController> ();
 	}
 	
 	private void eraseControllerRef(int index)

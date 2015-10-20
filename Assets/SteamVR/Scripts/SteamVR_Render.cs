@@ -15,6 +15,7 @@ public class SteamVR_Render : MonoBehaviour
 	public GUIStyle helpStyle;
 
 	public bool pauseGameWhenDashboardIsVisible = true;
+	public bool lockPhysicsUpdateRateToRenderFrequency = true;
 
 	public LayerMask leftMask, rightMask;
 
@@ -152,8 +153,8 @@ public class SteamVR_Render : MonoBehaviour
 			if (overlay != null)
 				overlay.UpdateOverlay(vr);
 
-			RenderEye(vr, Hmd_Eye.Eye_Left, leftMask);
-			RenderEye(vr, Hmd_Eye.Eye_Right, rightMask);
+			RenderEye(vr, Hmd_Eye.Eye_Left);
+			RenderEye(vr, Hmd_Eye.Eye_Right);
 
 			// Move cameras back to head position so they can be tracked reliably
 			foreach (var c in cameras)
@@ -169,7 +170,7 @@ public class SteamVR_Render : MonoBehaviour
 		}
 	}
 
-	void RenderEye(SteamVR vr, Hmd_Eye eye, LayerMask mask)
+	void RenderEye(SteamVR vr, Hmd_Eye eye)
 	{
 		int i = (int)eye;
 		SteamVR_Render.eye = eye;
@@ -188,7 +189,16 @@ public class SteamVR_Render : MonoBehaviour
 			var camera = c.GetComponent<Camera>();
 			camera.targetTexture = SteamVR_Camera.GetSceneTexture(camera.hdr);
 			int cullingMask = camera.cullingMask;
-			camera.cullingMask |= mask;
+			if (eye == Hmd_Eye.Eye_Left)
+			{
+				camera.cullingMask &= ~rightMask;
+				camera.cullingMask |= leftMask;
+			}
+			else
+			{
+				camera.cullingMask &= ~leftMask;
+				camera.cullingMask |= rightMask;
+			}
 			camera.Render();
 			camera.cullingMask = cullingMask;
 		}
@@ -299,7 +309,9 @@ public class SteamVR_Render : MonoBehaviour
 		Application.runInBackground = true; // don't require companion window focus
 		QualitySettings.maxQueuedFrames = -1;
 		QualitySettings.vSyncCount = 0; // this applies to the companion window
-		Time.fixedDeltaTime = 1.0f / vr.hmd_DisplayFrequency;
+
+		if (lockPhysicsUpdateRateToRenderFrequency)
+			Time.fixedDeltaTime = 1.0f / vr.hmd_DisplayFrequency;
 	}
 
 	void OnGUI()

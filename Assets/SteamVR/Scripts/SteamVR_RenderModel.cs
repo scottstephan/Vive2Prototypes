@@ -189,16 +189,40 @@ public class SteamVR_RenderModel : MonoBehaviour
 
 	void OnEnable()
 	{
+		// Make sure the mesh gets rendered.
+		GetComponent<MeshRenderer>().enabled = true;
+
+#if UNITY_EDITOR
+		if (!Application.isPlaying)
+			return;
+#endif
 		if (!string.IsNullOrEmpty(modelOverride))
-			SetModel(modelOverride);
-		else
-			SteamVR_Utils.Event.Listen("device_connected", OnDeviceConnected);
+		{
+			Debug.Log("Model override is really only meant to be used in the scene view for lining things up; using it at runtime is discouraged.  Use tracked device index instead to ensure the correct model is displayed for all users.");
+			enabled = false;
+			return;
+		}
+
+		if (SteamVR.active)
+		{
+			var vr = SteamVR.instance;
+			if (vr.hmd.IsTrackedDeviceConnected((uint)index))
+				UpdateModel();
+		}
+
+		SteamVR_Utils.Event.Listen("device_connected", OnDeviceConnected);
 	}
 
 	void OnDisable()
 	{
+		// Also hide the mesh.
+		GetComponent<MeshRenderer>().enabled = false;
+
+#if UNITY_EDITOR
+		if (!Application.isPlaying)
+			return;
+#endif
 		SteamVR_Utils.Event.Remove("device_connected", OnDeviceConnected);
-		GetComponent<MeshFilter>().mesh = null;
 	}
 
 #if UNITY_EDITOR

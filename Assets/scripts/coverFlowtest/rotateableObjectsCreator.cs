@@ -20,6 +20,7 @@ public class rotateableObjectsCreator : MonoBehaviour {
 		circleOrigin = circleCenterObject.transform.position;
 		angleIncrement = 360 / numObjects;
 		fwdViewPt = circleOrigin + viewFwdLength; //Gets us the z loc of the fwd spawn
+		createObjects ();
 	}
 	
 	// Update is called once per frame
@@ -27,21 +28,25 @@ public class rotateableObjectsCreator : MonoBehaviour {
 		Debug.DrawLine (circleOrigin, fwdViewPt);
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			for(int i = 0; i < numObjects; i++){
-				circPoint = pickRandomCircPoint(angleIncrement * i);
-
-				curCircPoint.x = circPoint.x;
-				curCircPoint.z = circPoint.y;
-				curCircPoint.y = circleOrigin.y;
-				GameObject thisTestSphere;
-
-				thisTestSphere = Instantiate(testSphere,curCircPoint,testSphere.transform.localRotation) as GameObject;
-				thisTestSphere.transform.parent = circleCenterObject.transform;
-			}
+			createObjects();
 		}
 
 		rotateAround();
 
+	}
+
+	private void createObjects(){
+		for(int i = 0; i < numObjects; i++){
+			circPoint = pickRandomCircPoint(angleIncrement * i);
+			
+			curCircPoint.x = circPoint.x;
+			curCircPoint.z = circPoint.y;
+			curCircPoint.y = circleOrigin.y;
+			GameObject thisTestSphere;
+			
+			thisTestSphere = Instantiate(testSphere,curCircPoint,testSphere.transform.localRotation) as GameObject;
+			thisTestSphere.transform.parent = circleCenterObject.transform;
+		}
 	}
 
 	private Vector2 pickRandomCircPoint(float angle){

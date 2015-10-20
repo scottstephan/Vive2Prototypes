@@ -7,6 +7,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Reflection;
+using Valve.VR;
 
 [RequireComponent(typeof(Camera))]
 public class SteamVR_Camera : MonoBehaviour
@@ -333,7 +334,7 @@ public class SteamVR_Camera : MonoBehaviour
 			var vr = SteamVR.instance;
 			var i = (int)SteamVR_Render.eye;
 			var bounds = vr.textureBounds[i];
-			vr.compositor.Submit(SteamVR_Render.eye, vr.graphicsAPI, src.GetNativeTexturePtr(), ref bounds);
+			vr.compositor.Submit(SteamVR_Render.eye, vr.graphicsAPI, src.GetNativeTexturePtr(), ref bounds, VRSubmitFlags_t.Submit_Default);
 		}
 
 		Graphics.SetRenderTarget(dest);

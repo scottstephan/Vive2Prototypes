@@ -34,6 +34,7 @@ public class SteamVR_Controller
 		public Device(uint i) { index = i; }
 		public uint index { get; private set; }
 
+		public bool valid { get; private set; }
 		public bool connected { get { Update(); return pose.bDeviceIsConnected; } }
 		public bool hasTracking { get { Update(); return pose.bPoseIsValid; } }
 
@@ -56,7 +57,7 @@ public class SteamVR_Controller
 				prevState = state;
 
 				var vr = SteamVR.instance;
-				vr.hmd.GetControllerStateWithPose(SteamVR_Render.instance.trackingSpace, index, ref state, ref pose);
+				valid = vr.hmd.GetControllerStateWithPose(SteamVR_Render.instance.trackingSpace, index, ref state, ref pose);
 
 				UpdateHairTrigger();
 			}

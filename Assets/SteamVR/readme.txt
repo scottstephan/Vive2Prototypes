@@ -15,6 +15,23 @@ The SteamVR runtime must be installed.  This can be found in Steam under Tools.
 The plugin currently only supports Windows / DX11.
 
 
+Changes for v1.0.4:
+
+* Updated to SteamVR runtime build #768489 (v.1441831863).
+
+* Added SteamVR_Skybox for setting a cubemap in the compositor (useful for scene transitions).
+
+* Fix for RenderModels disappearing across scene transitions, and disabling use of modelOverride at runtime.
+
+* Added lockPhysicsUpdateRateToRenderFrequency to SteamVR_Render ([SteamVR] prefab) for apps that want to run their physics sim at a lower frequency.  Locked (true) by default.
+
+* Made per-eye culling masks easier to use.  (See http://steamcommunity.com/app/250820/discussions/0/535152276589455019/)
+
+* Exposed min/max curve distance settings for high quality overlay.  Note: High quality overlay not currently supported in Rift Direct Mode and falls back to normal (flat-only) overlay render path.
+
+* Added 'valid' property to SteamVR_Controller.  This is useful for detecting the controller is plugged in before tracking comes online.
+
+
 Changes for v1.0.3:
 
 * Updated to SteamVR runtime build #710329 (v.1438035413).
@@ -58,6 +75,8 @@ prefix "VREvent_" stripped off.
 * Simplified SteamVR_Camera Expand/Collapse functionality (now uses existing parent as origin if available).
 
 * Added SteamVR_PlayArea component to visualize different size spaces to target.
+
+* Exposed SteamVR_Overlay.curvedRange for the high-quality curved overlay render path.
 
 
 Changes for v1.0.2:
